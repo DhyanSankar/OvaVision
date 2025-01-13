@@ -1,0 +1,7 @@
+xMotor:
+# of Steps in Cycle: 6400
+Lower bound for steps: 0.002
+
+rMotor:
+# of Steps in Cycle: not consistent oops probably makes sense but like lags a bit at point probably not ideal hm should clean maybe
+Lower bound for steps: seems inconsistent even on slower speeds, can try for higher maybe
