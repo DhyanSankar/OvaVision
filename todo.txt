@@ -1,0 +1,7 @@
+visualization:
+    make visualization thing print out a representation of what is happening
+    maybe some file isomorphic to a main file only for visualization
+    LATER: make visualization synchronous with motor movements depending on params
+
+general:
+    separate code into folders
