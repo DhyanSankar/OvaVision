@@ -3,11 +3,12 @@ class MachineUnit():
     x_reach = 0
     eggs_stored = [] # location of eggs are based on the index or in the egg class itself
     # should also probably have a maximum value of eggs stored
-    position = None # maybe a 3-tuple
+    position = (0,0,0) # maybe a 3-tuple
 
-    def __init__(self, x_reach, z_reach, eggs_stored) :
+    def __init__(self, x_reach, z_reach, position, eggs_stored=[]) :
         self.x_reach = x_reach
         self.z_reach = z_reach
+        self.position = position
         self.eggs_stored = eggs_stored
         # a machine unit should have a position.
         # i would also assume there may be multiple machine units possible, but then this will get extremely wonky. 
