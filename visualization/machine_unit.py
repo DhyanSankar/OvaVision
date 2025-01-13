@@ -13,6 +13,9 @@ class MachineUnit():
         # a machine unit should have a position.
         # i would also assume there may be multiple machine units possible, but then this will get extremely wonky. 
 
+    def set_pos(self, new_pos):
+        self.position = new_pos
+
     # probably want an update eggs function
     def get_egg_pos(self, index):
         raise NotImplementedError
