@@ -41,3 +41,20 @@ class MachineUnit():
     # the above is used to actually visualize the movements
     # need a python something to import to visualize. unsure of what to use.
     # when we do move_egg, we would want to in theory know how exactly we move the egg.
+
+class Motor():
+    motor_type = "" # could make this an abstract class and do inheritance stuff, also like if it's stationary and stuff like that
+    motor_occupied = False
+    motor_position = (0,0,0) # default val, not sure if needed
+
+    def __init__(self, motor_type, motor_position):
+        self.motor_type = motor_type
+        self.motor_position = motor_position
+
+    def use_motor(self):
+        # maybe need more params, maybe update motor_position
+
+        raise NotImplementedError
+        return None
+    
+    
