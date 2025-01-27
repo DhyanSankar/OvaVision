@@ -8,7 +8,8 @@ try:
 	Motor2 = DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27))
 
 
-	def 
+	def raiseMotor():
+		
 	"""
 	# 1.8 degree: nema23, nema14
 	# softward Control :
