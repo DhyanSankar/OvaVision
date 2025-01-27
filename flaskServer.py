@@ -1,10 +1,11 @@
 from flask import Flask
+import startScript
+import stopScript
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    print('on the hompage')
     return '''<p>Index Page
     <a href="/start"><button>Start</button></a>
     <a href="/stop"><button>Stop</button></a>
@@ -12,14 +13,14 @@ def index():
 
 @app.route('/start')
 def start():
-    print('on the start page')
+    startScript.start()
     return '''<p>Start Page</p>
         <a href="/"><button>Index</button></a>
         '''
 
 @app.route("/stop")
 def stop():
-    print("on the stop page")
+    stopScript.stop()
     return '''<p>Stop page<p>
         <a href="/"><button>Index</button></a>
         '''
