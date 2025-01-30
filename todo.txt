@@ -1,0 +1,11 @@
+visualization:
+    make visualization thing print out a representation of what is happening
+    maybe some file isomorphic to a main file only for visualization
+    LATER: make visualization synchronous with motor movements depending on params
+    integrate motor class with actual motor thingy w DRV8825
+
+general:
+    separate code into folders
+    
+motor stuff:
+    maybe DRV8825 can be turned into abstract class iff we need more types
