@@ -8,7 +8,30 @@ try:
 	Motor2 = DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27))
 
 
-	def raiseMotor():
+	def raiseDrill(shift = 1):
+		pass
+
+	
+	def lowerDrill(shift = 1):
+		pass
+
+	def turnDegreesForward(motor,degrees=360):
+		# Full rotation: 6400 steps
+		try:
+			motor.TurnStep(Dir='forward', steps=160*degrees/9, stepdelay = 0.005)
+			return 1
+			
+		except:
+			return 0
+	
+	def turnDegreesBackward(motor,degrees=360):
+		# Full rotation: 6400 steps
+		try:
+			motor.TurnStep(Dir='backward', steps=160*degrees/9, stepdelay = 0.005)
+			return 1
+			
+		except:
+			return 0
 		
 	"""
 	# 1.8 degree: nema23, nema14

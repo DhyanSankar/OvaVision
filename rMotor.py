@@ -18,6 +18,23 @@ try:
 	# '1/32step': A cycle = 200 * 32 steps
 
 	"""
+	def turnDegreesForward(motor,degrees=360):
+		# Full rotation: 6400 steps
+		try:
+			motor.TurnStep(Dir='forward', steps=160*degrees/9, stepdelay = 0.005)
+			return 1
+			
+		except:
+			return 0
+	
+	def turnDegreesBackward(motor,degrees=360):
+		# Full rotation: 6400 steps
+		try:
+			motor.TurnStep(Dir='backward', steps=160*degrees/9, stepdelay = 0.005)
+			return 1
+			
+		except:
+			return 0
 	
 
 	while True:
