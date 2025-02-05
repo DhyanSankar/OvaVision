@@ -49,7 +49,11 @@ class DRV8825():
           self.control_pin[pin].off()
           
         #GPIO.output(pin, value)
+    
+    def Start(self):
+        self.digital_write(self.enable_pin, 1)
         
+
     def Stop(self):
         self.digital_write(self.enable_pin, 0)
         
