@@ -24,7 +24,6 @@ class rMotor:
 		self.turnDegreesBackward(self.rotation)
 
 
-	
 
 	def setRotation(self,degrees):
 		if degrees > self.rotation:
