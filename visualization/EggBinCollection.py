@@ -1,3 +1,20 @@
+from egg import Egg
+
+class EggBin():
+    egg_array = []
+    pos = (0,0)
+    gap = 0 # dummy value: distance between each eggs
+
+    def __init__(self, gap, dimensions=(2,2)):
+        self.egg_array = [[Egg("f") for j in range(dimensions[1])] for i in range(dimensions[0])]
+        self.gap = gap
+
+    def egg_index_to_pos(self, index):
+        raise NotImplementedError
+        return None
+        # implement this by adding pos centered on (0,0) locally in the EggBin 
+    
+
 class EggBinCollection():
     bin_array = []
     def __init__(self, dimensions, gap, bin_unit): # dimension, gap is a float of dist between top and bottom stuff, ex_machine_unit is an example of a machine unit
