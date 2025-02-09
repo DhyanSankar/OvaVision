@@ -6,8 +6,10 @@ perhaps need to store position always in a text file
 can also just have a manual calibration feature?
 at least for now probably would be good actually
 
-r motor:
+make things inheritency
 
+r motor:
+Need to ensure r does go more than 360
 
 z motor:
 

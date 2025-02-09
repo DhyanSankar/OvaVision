@@ -24,23 +24,70 @@ class rMotor:
 		self.turnDegreesBackward(self.rotation)
 
 
-	def changeRotation(self,degrees):
+	
+
+	def setRotation(self,degrees):
+		if degrees > self.rotation:
+			self.turnDegreesForward(degrees-self.rotation)
+		if degrees < self.rotation:
+			self.turnDegreesBackward(self.rotation-degrees)
+	 
+
+	def setStoredRotation(self,degrees):
+		
+		self.rotation = degrees
+
+		if self.rotation > 360:
+			self.rotation = 360
+
+		if self.rotation < 0:
+			self.rotation = 0
+		
+
+	def changeStoredRotation(self,degrees):
 		self.rotation += degrees
-		self.rotation %= 360
+
+		if self.rotation > 360:
+			print("Rotation > 360")
+
+		if self.rotation < 0:
+			print("Rotation < 0")
+		
+		
 
 
 	def turnDegreesForward(self, degrees=360):
 
-		
-		self.motor.TurnStep(Dir='forward', steps=self.STEPS*degrees/360, stepdelay = 0.005)
-		self.changeRotation(degrees)
+		if (degrees < 0):
+			self.turnDegreesBackward(-degrees)
+
+		else:
+			if self.rotation + degrees > 360:
+				print("> 360 turn, setting to 360")
+				degrees = 360-self.rotation
+
+			self.motor.Start()
+			self.motor.TurnStep(Dir='forward', steps=self.STEPS*degrees/360, stepdelay = 0.005)
+			self.motor.Stop()
+			self.changeStoredRotation(degrees)
         
 
 	def turnDegreesBackward(self, degrees=360):
 		
-		self.motor.TurnStep(Dir='backward', steps=self.STEPS*degrees/360, stepdelay = 0.005)
-		self.changeRotation(-degrees)
+		if (degrees < 0):
+			self.turnDegreesForward(-degrees)
 			
+		else:
+			if self.rotation - degrees < 0:
+				print("< 0 turn, setting to 0")
+				degrees = self.rotation
+
+			self.motor.Start()
+			self.motor.TurnStep(Dir='backward', steps=self.STEPS*degrees/360, stepdelay = 0.005)
+			self.motor.Stop()
+
+			self.changeStoredRotation(-degrees)
+				
 			
 		
 

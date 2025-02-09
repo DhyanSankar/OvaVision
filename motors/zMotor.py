@@ -8,10 +8,12 @@ class zMotor:
 	def __init__(self, motor):
 		
 		self.motor = motor
-		self.height = 0
+		self.percentHeight = 0
+		
 
 		# EDIT THIS ONCE HEIGHT ADJUSTMENT TO Z MOVEMENT IS FIGURED OUT
 		self.conversion = 1
+		self.maxHeight = 1
 
     
 	def __init__(self, motor):
@@ -23,9 +25,18 @@ class zMotor:
 		# If storing r position, can also store z position
 		self.lowerBase(self, 100)
 		
+	def changeHeightPercent(self,percentOfHeight):
+		
+		self.percentHeight += percentOfHeight
+		if (self.percentHeight > 1):
+			self.percentHeight = 1
+		if (self.percentHeight < 0):
+			self.percentHeight = 0
+
 
 	def raiseBase(self,percentOfHeight = 100):
 		# Will turn forward or backward, need to figure out which way it goes once we can actually connect
+		
 		self.turnDegreesForward(self, percentOfHeight * self.conversion)
 		
 	
@@ -38,11 +49,15 @@ class zMotor:
 
 	def turnDegreesForward(self, degrees=360):
 
+		self.motor.Start()
 		self.motor.TurnStep(Dir='forward', steps=160*degrees/9, stepdelay = 0.005)
+		self.motor.Stop()
         
 	def turnDegreesBackward(self, degrees=360):
 		
+		self.motor.Start()
 		self.motor.TurnStep(Dir='backward', steps=160*degrees/9, stepdelay = 0.005)
+		self.motor.Stop()
 
 		
 	"""
