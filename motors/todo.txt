@@ -1,5 +1,7 @@
 general:
 
+REMEMBER TO UNCOMMENT DRV8825 and GPIO
+
 identify ways of resetting motors to startig positions,
 perhaps need to store position always in a text file
 

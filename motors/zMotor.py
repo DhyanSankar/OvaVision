@@ -1,4 +1,4 @@
-import gpiozero as GPIO
+#import gpiozero as GPIO
 import time
 from DRV8825 import DRV8825
 
@@ -13,51 +13,72 @@ class zMotor:
 
 		# EDIT THIS ONCE HEIGHT ADJUSTMENT TO Z MOVEMENT IS FIGURED OUT
 		self.conversion = 1
-		self.maxHeight = 1
+		self.maxHeight = 100
 
     
-	def __init__(self, motor):
-		
-		self.motor = motor
-
 	def resetBase(self):
 
 		# If storing r position, can also store z position
-		self.lowerBase(self, 100)
 		
-	def changeHeightPercent(self,percentOfHeight):
+		# Actually maybe this is questionable
+		self.lowerBase(100)
 		
+
+	def setStoredHeightPercent(self,percentOfHeight):
+		self.percentHeight = percentOfHeight
+
+	def changeStoredHeightPercent(self,percentOfHeight):
+
 		self.percentHeight += percentOfHeight
-		if (self.percentHeight > 1):
-			self.percentHeight = 1
+		if (self.percentHeight > 100):
+			self.percentHeight = 100
 		if (self.percentHeight < 0):
 			self.percentHeight = 0
+
+
+	def setBaseTo(self, percentOfHeight):
+		
+		if percentOfHeight > self.percentHeight:
+			self.raiseBase(percentOfHeight-self.percentHeight)
+
+		if percentOfHeight < self.percentHeight:
+			self.lowerBase(self.percentHeight-percentOfHeight)
 
 
 	def raiseBase(self,percentOfHeight = 100):
 		# Will turn forward or backward, need to figure out which way it goes once we can actually connect
 		
-		self.turnDegreesForward(self, percentOfHeight * self.conversion)
+		self.turnDegreesForward(percentOfHeight * self.conversion)
+		self.changeStoredHeightPercent(percentOfHeight)
 		
 	
 	def lowerBase(self, percentOfHeight = 100):
 
-		self.turnDegreesBackward(self, percentOfHeight * self.conversion)
-		
+		self.turnDegreesBackward(percentOfHeight * self.conversion)
+		self.changeStoredHeightPercent(-percentOfHeight)
 
 
-
+	# Some inconsistency with rMotor, if thing go wrong should syncronize storing height / rotation
 	def turnDegreesForward(self, degrees=360):
+		
+		if (degrees < 0):
+			self.turnDegreesBackward(-degrees)
 
-		self.motor.Start()
-		self.motor.TurnStep(Dir='forward', steps=160*degrees/9, stepdelay = 0.005)
-		self.motor.Stop()
+		else:
+			self.motor.Start()
+			self.motor.TurnStep(Dir='forward', steps=160*degrees/9, stepdelay = 0.005)
+			self.motor.Stop()
+			
         
 	def turnDegreesBackward(self, degrees=360):
-		
-		self.motor.Start()
-		self.motor.TurnStep(Dir='backward', steps=160*degrees/9, stepdelay = 0.005)
-		self.motor.Stop()
+
+		if (degrees < 0):
+			self.turnDegreesForward(-degrees)
+
+		else:
+			self.motor.Start()
+			self.motor.TurnStep(Dir='backward', steps=160*degrees/9, stepdelay = 0.005)
+			self.motor.Stop()
 
 		
 	"""
