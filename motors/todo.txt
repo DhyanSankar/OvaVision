@@ -10,6 +10,9 @@ at least for now probably would be good actually
 
 make things inheritency
 
+ON PI:
+Enable i2c: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
+
 r motor:
 Need to ensure r does go more than 360
 

@@ -67,7 +67,7 @@ class rzController:
 
 
 
-
+# Currently for dev interaction, will link with x eventually
 def rzLoop(rMotorCur, zMotorCur):
 
     controller = rzController(rMotorCur, zMotorCur)
@@ -154,9 +154,5 @@ def main():
 
     # Main loop
     rzLoop(rMotorCur, zMotorCur)
-
-
-
-
 
 main()
