@@ -1,3 +1,5 @@
+# flask --app flaskServer run
+# cd ovavision-frontend + npm start
 from flask import Flask, jsonify
 from flask_cors import CORS
 import startScript
