@@ -1,4 +1,4 @@
-# import gpiozero as GPIO
+import gpiozero as GPIO
 import time
 from DRV8825 import DRV8825
 from zMotor import zMotor

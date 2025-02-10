@@ -108,30 +108,3 @@ class DRV8825():
             time.sleep(stepdelay)
             self.digital_write(self.step_pin, False)
             time.sleep(stepdelay)
-
-# DUMMY CLASS
-# # For testing without Pi
-# class DRV8825():
-#     def __init__(self, dir_pin, step_pin, enable_pin, mode_pins):
-
-        
-#         pass
-        
-#     def digital_write(self, pin, value):
-#         pass
-    
-#     def Start(self):
-#         pass
-        
-
-#     def Stop(self):
-#         pass
-        
-#     def Configure_mode(self, microstep):
-#         pass
-    
-#     def SetMicroStep(self, mode, stepformat):
-#         pass
-        
-#     def TurnStep(self, Dir, steps, stepdelay=0.005):
-#         pass
