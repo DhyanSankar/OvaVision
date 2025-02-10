@@ -1,26 +1,30 @@
-from flask import Flask
+from flask import Flask, jsonify
+from flask_cors import CORS
 import startScript
 import stopScript
 
 app = Flask(__name__)
+CORS(app)
 
-@app.route('/')
-def index():
-    return '''<p>Index Page
-    <a href="/start"><button>Start</button></a>
-    <a href="/stop"><button>Stop</button></a>
-        </p>'''
+status = {"state": "Stopped"}  # Default state
+
+@app.route('/status')
+def get_status():
+    return jsonify({"status": status["state"]})
 
 @app.route('/start')
 def start():
+    global status
     startScript.start()
-    return '''<p>Start Page</p>
-        <a href="/"><button>Index</button></a>
-        '''
+    status["state"] = "Running"
+    return jsonify({"message": "Start script executed", "status": status["state"]})
 
-@app.route("/stop")
+@app.route('/stop')
 def stop():
+    global status
     stopScript.stop()
-    return '''<p>Stop page<p>
-        <a href="/"><button>Index</button></a>
-        '''
+    status["state"] = "Stopped"
+    return jsonify({"message": "Stop script executed", "status": status["state"]})
+
+if __name__ == '__main__':
+    app.run(debug=True)
