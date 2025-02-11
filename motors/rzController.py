@@ -1,5 +1,6 @@
 import gpiozero as GPIO
 import time
+import math
 from DRV8825 import DRV8825
 from zMotor import zMotor
 from rMotor import rMotor
@@ -11,8 +12,6 @@ class rzController:
         self.rController = rController
         self.zController = zController
 
-
-    
 
     def setR(self,degrees):
         self.rController.setRotation(degrees);
@@ -65,6 +64,26 @@ class rzController:
         self.changeR(rDegrees)
         self.changeZ(zPercentOfHeight)
 
+    # Given theta in radians, z is height
+    def cylindricalToCartesian(r,theta,h):
+        return (r*math.cos(theta), r*math.sin(theta), h)
+    
+    # Returns theta in [-pi/2, pi/2]
+    def cartesianToCylindrical(x,z,y):
+            theta = 0;
+            if (x > 0):
+                theta = math.atan(z/x)
+            elif (x==0):
+                if (z>0):
+                    theta = math.pi/2
+                else:
+                    theta = -math.pi/2
+            elif (x < 0 and z > 0):
+                theta = math.atan(z/x)+math.pi
+            else:
+                theta = math.atan(z/x)-math.pi
+
+            return (math.sqrt(x*x + z*z), theta, y)
 
 
 # Currently for dev interaction, will link with x eventually
@@ -90,12 +109,9 @@ def rzLoop(rMotorCur, zMotorCur):
             r = float(input())
             print("Enter an z (from 0 to 100): ",end='')
             z = float(input())
-            try:
-                controller.setRZ(r, z)
-                print(f"Moved to r = {controller.getR()}, z = {controller.getZ()}")
-            except Exception as e:
-                print("Oops, something went wrong!")
-                print(e)
+       
+            controller.setRZ(r, z)
+               
 
         elif action == "MOVE":
             print("Enter an r (from -180 to 180): ",end='')
@@ -136,13 +152,10 @@ def rzLoop(rMotorCur, zMotorCur):
 
         action = input()
     
-    try:
-        controller.resetRZ()
-        print("Wow! Things should be fine!")
-
-    except Exception as e:
-        print("Oops, something went wrong! That's quite bad things didn't shut off correctly.")
-        print(e)
+    print("resetting")
+    controller.resetRZ()
+    print("reset complete!")
+        
 
 
 def main():
