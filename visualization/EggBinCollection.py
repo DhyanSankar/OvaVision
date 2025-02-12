@@ -36,8 +36,33 @@ class EggBinCollection():
                 pos = (self.r, 2*math.PI*j/edges, self.z*(1-i/edges))
                 self.bin_array[i][j] = EggBin(pos, gap)
 
-        # now you need to update the positions of each one, but im not sure if python thingy is copy by reference or value
-        # not sure if order is correct
+
+    def print_status(self):
+        status_X = 'UNAVAILABLE'
+        status_Z = 'UNAVAILABLE'
+        status_R = 'UNAVAILABLE'
+        estimate = 'UNAVAILABLE'
+
+        print("Motor Status:")
+        print("  X:  " + status_X)
+        print("  Z:  " + status_Z)
+        print("  R:  " + status_R)
+
+        for layer in self.bin_array:
+            top_string = ""
+            bottom_string = ""
+
+            for bin in layer:
+                top_string += "|" + bin.egg_array[0] + " " + bin.egg_array[3] + "|  "
+                bottom_string += "|" + bin.egg_array[1] + " " + bin.egg_array[2] + "|  "
+            
+            print(top_string)
+            print(bottom_string)
+            print("\n")
+
+        print("Estimated Sorting Time Remaining: " + estimate)
+        
+
 
 
 # index 0 should be the top layer
