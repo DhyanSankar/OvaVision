@@ -7,7 +7,8 @@ class EggBin():
     pos = (0, 0, 0)
     gap = 0 # dummy value: distance between each eggs
 
-    def __init__(self, gap, dimensions=(2,2)):
+    def __init__(self, pos, gap, dimensions=(2,2)):
+        self.pos = pos
         self.egg_array = [[Egg("f") for j in range(dimensions[1])] for i in range(dimensions[0])]
         self.gap = gap
 
@@ -23,14 +24,16 @@ class EggBin():
     
 
 class EggBinCollection():
+    z = 27959827592502 # supposed to be height or sm
+    r = 91827492875982 # sps to be radius
+    # I WILL PROBABLY MERGE EGGBINCOLLECTION AND MACHINEUNIT
     bin_array = []
-    def __init__(self, layers, edges, gap, bin_unit): # dimension, gap is a float of dist between top and bottom stuff, ex_machine_unit is an example of a machine unit
-        # dimensions = 
-        # define the machine array here, lowk forgot how to
-        self.machine_array = [[bin_unit for j in range(edges)] for i in range(layers)]
+    def __init__(self, layers, edges, gap):
         for i in range(layers):
+
             for j in range(edges):
-                    self.bin_array[i][j].set_pos((i*gap,j*gap)) # this does not work 
+                pos = (self.r, 2*math.PI*j/edges, self.z*(1-i/edges))
+                self.bin_array[i][j] = EggBin(pos, gap)
 
         # now you need to update the positions of each one, but im not sure if python thingy is copy by reference or value
         # not sure if order is correct
