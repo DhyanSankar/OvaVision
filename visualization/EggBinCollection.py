@@ -1,6 +1,6 @@
-from egg import Egg
 import math
 import coord_funcs
+from motors import xrzController
 
 class EggBin():
     egg_array = []
@@ -9,7 +9,7 @@ class EggBin():
 
     def __init__(self, pos, gap, dimensions=(2,2)):
         self.pos = pos
-        self.egg_array = [[Egg("f") for j in range(dimensions[1])] for i in range(dimensions[0])]
+        self.egg_array = [["f" for j in range(dimensions[1])] for i in range(dimensions[0])]
         self.gap = gap
 
     def egg_index_to_cartesian_pos(self, index):
@@ -26,7 +26,8 @@ class EggBin():
 class EggBinCollection():
     z = 27959827592502 # supposed to be height or sm
     r = 91827492875982 # sps to be radius
-    # I WILL PROBABLY MERGE EGGBINCOLLECTION AND MACHINEUNIT
+    # the above two should be from xrzController that will be implemented by jeremy.
+
     bin_array = []
     def __init__(self, layers, edges, gap):
         for i in range(layers):
