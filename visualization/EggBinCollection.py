@@ -38,7 +38,9 @@ class EggBinCollection():
 
 
     def print_status(self):
-        status_X = 'UNAVAILABLE'
+        entire_str = ""
+
+        status_X = 'UNAVAILABLE' # theoretically this should print whether motor is in use and current position of the motor.
         status_Z = 'UNAVAILABLE'
         status_R = 'UNAVAILABLE'
         estimate = 'UNAVAILABLE'
@@ -47,6 +49,8 @@ class EggBinCollection():
         print("  X:  " + status_X)
         print("  Z:  " + status_Z)
         print("  R:  " + status_R)
+
+        entire_str += "Motor Status:\n" + "\tX:\t" + status_X + "\n\tZ:\t" + status_Z + "\n\tR:\t" + status_R + "\n" 
 
         for layer in self.bin_array:
             top_string = ""
@@ -60,7 +64,12 @@ class EggBinCollection():
             print(bottom_string)
             print("\n")
 
+            entire_str += top_string + "\n" + bottom_string + "\n\n"
+
         print("Estimated Sorting Time Remaining: " + estimate)
+        entire_str += "Estimated Sorted Time Remaining: " + estimate
+
+        return entire_str
         
 
 
