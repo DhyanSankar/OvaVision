@@ -24,12 +24,12 @@ class EggBin():
     
 
 class EggBinCollection():
-    z = 27959827592502 # supposed to be height or sm
-    r = 91827492875982 # sps to be radius
-    # the above two should be from xrzController that will be implemented by jeremy.
+    controller = None # xrzController
 
     bin_array = []
-    def __init__(self, layers, edges, gap):
+    def __init__(self, layers, edges, gap, controller):
+        self.controller = controller
+
         for i in range(layers):
 
             for j in range(edges):
@@ -41,16 +41,17 @@ class EggBinCollection():
         entire_str = ""
 
         status_X = 'UNAVAILABLE' # theoretically this should print whether motor is in use and current position of the motor.
-        status_Z = 'UNAVAILABLE'
         status_R = 'UNAVAILABLE'
+        status_Z = 'UNAVAILABLE'
         estimate = 'UNAVAILABLE'
 
         print("Motor Status:")
         print("  X:  " + status_X)
-        print("  Z:  " + status_Z)
         print("  R:  " + status_R)
+        print("  Z:  " + status_Z)
 
-        entire_str += "Motor Status:\n" + "\tX:\t" + status_X + "\n\tZ:\t" + status_Z + "\n\tR:\t" + status_R + "\n" 
+
+        entire_str += "Motor Status:\n" + "\tX:\t" + status_X + "\n\tR:\t" + status_R + "\n\tZ:\t" + status_Z + "\n" 
 
         for layer in self.bin_array:
             top_string = ""
