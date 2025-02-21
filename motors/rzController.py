@@ -1,4 +1,4 @@
-import gpiozero as GPIO
+# import gpiozero as GPIO
 import time
 import math
 from DRV8825 import DRV8825
