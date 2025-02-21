@@ -5,7 +5,7 @@ from DRV8825 import DRV8825
 from zMotor import zMotor
 from rMotor import rMotor
 
-class rzController:
+class RZController:
 
     def __init__(self, rController, zController):
 		
@@ -89,7 +89,7 @@ class rzController:
 # Currently for dev interaction, will link with x eventually
 def rzLoop(rMotorCur, zMotorCur):
 
-    controller = rzController(rMotorCur, zMotorCur)
+    controller = RZController(rMotorCur, zMotorCur)
     print(rMotorCur.rotation)
 
     print("Hello! What would you like to do?")
@@ -158,7 +158,7 @@ def rzLoop(rMotorCur, zMotorCur):
         
 
 
-def main():
+if __name__ == "__main__":
     Motor1 = DRV8825(dir_pin=13, step_pin=19, enable_pin=12, mode_pins=(16, 17, 20))
     Motor2 = DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27))
 
@@ -168,4 +168,3 @@ def main():
     # Main loop
     rzLoop(rMotorCur, zMotorCur)
 
-main()

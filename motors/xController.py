@@ -1,5 +1,5 @@
 # import gpiozero as GPIO
-class xMotor:
+class XController:
 
 	def __init__(self, motor):
 		self. motor = motor
@@ -8,7 +8,7 @@ class xMotor:
 		pass
     
 	def getX(self):
-		pass
+		return 0
        
 	def calibrateX(self, degrees = 0):
 
