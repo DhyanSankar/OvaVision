@@ -1,4 +1,5 @@
 import math
+import random
 import coord_funcs
 from motors import xrzController
 
@@ -18,26 +19,34 @@ class EggBin():
 
         local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.PI/4 + index*math.PI/2 + self.pos[1], self.pos[2])
         
-        
         return coord_funcs.add_cartesian_coords(coord_funcs.cylindrical_to_cartesian(local_cylindrical_cord), 
                                                 coord_funcs.cylindrical_to_cartesian(self.pos))
     
 
 class EggBinCollection():
     controller = None # xrzController
-
     bin_array = []
+
     def __init__(self, layers, edges, gap, controller):
         self.controller = controller
 
         for i in range(layers):
 
             for j in range(edges):
-                pos = (self.r, 2*math.PI*j/edges, self.z*(1-i/edges))
+                pos = (self.r, 2*math.PI*j/edges, self.z*(1-i/edges)) # self.r and self.z should be turned into controller.r and controller.z
                 self.bin_array[i][j] = EggBin(pos, gap)
 
 
+    def randomize_sex_for_test(self):
+        for layer in self.bin_array:
+            for bin in layer:
+                bin.egg_array = ["f" if random.random()<.5 else "m" for i in range(4)]
+        return
+
     def print_status(self):
+        self.controller.print_status()
+
+        estimate = 'NOT AVAILABLE'
 
         for layer in self.bin_array:
             top_string = ""
@@ -57,9 +66,3 @@ class EggBinCollection():
         entire_str += "Estimated Sorted Time Remaining: " + estimate
 
         return entire_str
-        
-
-
-
-# index 0 should be the top layer
-# index 0,0 should be the top, rightmost 
