@@ -24,12 +24,12 @@ class EggBin():
     
 
 class EggBinCollection():
-    z = 27959827592502 # supposed to be height or sm
-    r = 91827492875982 # sps to be radius
-    # the above two should be from xrzController that will be implemented by jeremy.
+    controller = None # xrzController
 
     bin_array = []
-    def __init__(self, layers, edges, gap):
+    def __init__(self, layers, edges, gap, controller):
+        self.controller = controller
+
         for i in range(layers):
 
             for j in range(edges):
