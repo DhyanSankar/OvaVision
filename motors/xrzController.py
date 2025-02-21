@@ -17,4 +17,17 @@ class xrzController(xController, rzController):
         rzController.__init__(self, rMotor,zMotor)    
 
 
-  
+    def print_status(self):
+        entire_str = ""
+
+        status_X = 'UNAVAILABLE' # theoretically this should print whether motor is in use and current position of the motor.
+        status_Z = 'UNAVAILABLE'
+        status_R = 'UNAVAILABLE'
+        estimate = 'UNAVAILABLE'
+
+        print("Motor Status:")
+        print("  X:  " + status_X)
+        print("  Z:  " + status_Z)
+        print("  R:  " + status_R)
+
+        entire_str += "Motor Status:\n" + "\tX:\t" + status_X + "\n\tZ:\t" + status_Z + "\n\tR:\t" + status_R + "\n" 
