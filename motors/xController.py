@@ -5,6 +5,7 @@ class XController:
 		self. motor = motor
 	
 	def setX(self,degrees):
+		print("x")
 		pass
     
 	def getX(self):

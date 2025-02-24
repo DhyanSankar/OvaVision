@@ -15,6 +15,7 @@ class RZController:
 
     def setR(self,degrees):
         self.rController.setRotation(degrees);
+        print("r")
 
     def getR(self):
         return self.rController.rotation
@@ -22,6 +23,7 @@ class RZController:
 
     def setZ(self, percentOfHeight):
         self.zController.setBaseTo(percentOfHeight)
+        print("z")
     
     def getZ(self):
         return self.zController.percentHeight
