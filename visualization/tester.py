@@ -6,11 +6,7 @@ def main():
     collection = EggBinCollection.EggBinCollection(layers, edges, gap)
 
     print("hi")
-    print(collection)
-
     collection.randomize_sex_for_test()
-
-    print(collection)
 
     collection.print_status()
 
