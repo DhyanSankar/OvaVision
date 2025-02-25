@@ -1,10 +1,10 @@
 import math
 import random
 import coord_funcs
-from motors import xrzController
+# import motors.xrzController
 
 class EggBin():
-    egg_array = []
+    egg_array = [0,0,0,0]
     pos = (0, 0, 0)
     gap = 0 # dummy value: distance between each eggs
 
@@ -17,7 +17,7 @@ class EggBin():
         # |0  3|
         # |1  2|
 
-        local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.PI/4 + index*math.PI/2 + self.pos[1], self.pos[2])
+        local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.pi/4 + index*math.pi/2 + self.pos[1], self.pos[2])
         
         return coord_funcs.add_cartesian_coords(coord_funcs.cylindrical_to_cartesian(local_cylindrical_cord), 
                                                 coord_funcs.cylindrical_to_cartesian(self.pos))
@@ -27,14 +27,14 @@ class EggBinCollection():
     controller = None # xrzController
     bin_array = []
 
-    def __init__(self, layers, edges, gap, controller):
+    def __init__(self, layers, edges, gap, controller=None):
         self.controller = controller
 
         for i in range(layers):
-
+            self.bin_array.append([])
             for j in range(edges):
-                pos = (self.r, 2*math.PI*j/edges, self.z*(1-i/edges)) # self.r and self.z should be turned into controller.r and controller.z
-                self.bin_array[i][j] = EggBin(pos, gap)
+                pos = (4, 2*math.pi*j/edges, 2*(1-i/edges)) # 4 and 2 should be turned into controller.r and controller.z
+                self.bin_array[i].append(EggBin(pos, gap))
 
 
     def randomize_sex_for_test(self):
@@ -44,8 +44,9 @@ class EggBinCollection():
         return
 
     def print_status(self):
-        self.controller.print_status()
-
+        entire_str = ""
+        # entire_str = self.controller.print_status()
+        
         estimate = 'NOT AVAILABLE'
 
         for layer in self.bin_array:
