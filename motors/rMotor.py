@@ -6,8 +6,6 @@ from DRV8825 import DRV8825
 
 class rMotor:
 
-	rotation = 0
-
 	def __init__(self, motor):
 		
 		self.motor = motor

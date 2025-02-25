@@ -28,10 +28,10 @@ class XRZController(XController, RZController):
 
         if xMotorCur == 0:
             # put thing here
-            xMotor = zMotor;
+            xMotorCur = zMotorCur;
 
-        XController.__init__(self, xMotor)  # Initialize Employee
-        RZController.__init__(self, rMotor,zMotor) 
+        XController.__init__(self, xMotorCur)  # Initialize Employee
+        RZController.__init__(self, rMotorCur,zMotorCur) 
 
         self.status_X = 'AVAILABLE' 
         self.status_R = 'AVAILABLE' 
