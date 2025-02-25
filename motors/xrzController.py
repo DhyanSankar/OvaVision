@@ -7,6 +7,7 @@ from DRV8825 import DRV8825
 from zMotor import zMotor
 from rMotor import rMotor
 
+
 from xController import XController;
 from rzController import RZController;
 
@@ -83,7 +84,7 @@ class XRZController(XController, RZController):
         print("  R:  " + self.status_Z + " - " + str(self.getZ()))
 
         entire_str += "Motor Status:\n" + "\tX:\t" + self.status_X + "\n\tR:\t" + self.status_R + "\n\tZ:\t" + self.status_Z + "\n" 
-
+        
 
 def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
 
@@ -137,7 +138,8 @@ def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
 
 
 if __name__ == "__main__":
- 
+    
+    # Probably will need definitions of motors stored somewhere
     Motor1 = DRV8825(dir_pin=13, step_pin=19, enable_pin=12, mode_pins=(16, 17, 20))
     Motor2 = DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27))
 
