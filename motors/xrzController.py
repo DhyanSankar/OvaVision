@@ -27,7 +27,7 @@ class XRZController(XController, RZController):
             zMotorCur = zMotor(DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27)))
 
         if xMotorCur == 0:
-            # put thing here
+            # PUT REAL X
             xMotorCur = zMotorCur;
 
         XController.__init__(self, xMotorCur)  # Initialize Employee
