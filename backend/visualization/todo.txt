@@ -1,6 +1,18 @@
 visualization:
-    instantiate xrzController within my files
-    integrate motor class with actual motor thingy w DRV8825
     possibly make egg bin positions be empty
     probably pass array of array of array of eggs to dhyan
     in a separate function, pass dhyan motor statuses
+    
+
+future direction:
+    code something to find an easy path for egg sorting.
+    have an array of eggs i want to sort.
+    have an array of eggs i want the eggs to be like
+        potential concerns within this:
+            the shape the user wants may not be feasible due to variation in gender numbers
+            therefore i would need to filter that out beforehand.
+
+    not sure how to implement this, but i may use AI with heuristics to do it. This seems like overcomplicating stuff though.
+
+    i will output a set of moves to make. 
+    This will be utilized by anthony to now actually control the machinery with jeremy's controller.
