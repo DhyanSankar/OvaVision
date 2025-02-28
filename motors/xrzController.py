@@ -86,9 +86,6 @@ class XRZController(XController, RZController):
     def print_status(self):
         entire_str = ""
 
-      
-        estimate = 'UNAVAILABLE'
-
         print("Motor Status:")
         print("  X:  " + self.status_X + " - " + str(self.getX()))
         print("  Z:  " + self.status_R + " - " + str(self.getR()))

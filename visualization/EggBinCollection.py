@@ -24,17 +24,20 @@ class EggBin():
     
 
 class EggBinCollection():
-    controller = None # xrzController
+    controller = xrzController() # xrzController
     bin_array = []
 
-    def __init__(self, layers, edges, gap, controller=None):
-        self.controller = controller
+    def __init__(self, layers, edges, gap):
 
         for i in range(layers):
             self.bin_array.append([])
             for j in range(edges):
                 pos = (4, 2*math.pi*j/edges, 2*(1-i/edges)) # 4 and 2 should be turned into controller.r and controller.z
                 self.bin_array[i].append(EggBin(pos, gap))
+
+    def __init__(self, layers, edges, gap, controller):
+        self.__init__(layers, edges, gap)
+        self.controller = controller
 
 
     def randomize_sex_for_test(self):
@@ -44,8 +47,7 @@ class EggBinCollection():
         return
 
     def print_status(self):
-        entire_str = ""
-        # entire_str = self.controller.print_status()
+        entire_str = self.controller.print_status()
         
         estimate = 'NOT AVAILABLE'
 
