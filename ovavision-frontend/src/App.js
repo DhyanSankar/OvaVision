@@ -15,6 +15,7 @@ function App() {
     try {
       const response = await axios.get(`${API_URL}/status`);
       setStatus(response.data.status);
+      setMessage(response.data.bin_status); // Update message with bin status
     } catch (error) {
       console.error("Error fetching status:", error);
     }
@@ -23,7 +24,7 @@ function App() {
   const handleAction = async (action) => {
     try {
       const response = await axios.get(`${API_URL}/${action}`);
-      setMessage(response.data.message); // Update message
+      setMessage(response.data.message + "\n" + response.data.bin_status); // Update message with action message and bin status
       setStatus(response.data.status); // Update status
     } catch (error) {
       console.error("Error:", error);
@@ -38,6 +39,7 @@ function App() {
       <p>{message}</p>
       <button onClick={() => handleAction("start")}>Start</button>
       <button onClick={() => handleAction("stop")}>Stop</button>
+      <button onClick={fetchStatus}>Update Status</button> 
     </div>
   );
 }
