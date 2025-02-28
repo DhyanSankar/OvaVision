@@ -1,0 +1,6 @@
+visualization:
+    instantiate xrzController within my files
+    integrate motor class with actual motor thingy w DRV8825
+    possibly make egg bin positions be empty
+    probably pass array of array of array of eggs to dhyan
+    in a separate function, pass dhyan motor statuses

@@ -15,17 +15,28 @@ from rzController import RZController;
 
 class XRZController(XController, RZController):
 
-    def __init__(self,xMotor, rMotor, zMotor):
+    def __init__(self,xMotorCur = 0, rMotorCur = 0, zMotorCur = 0):
 		
-        XController.__init__(self, xMotor)  # Initialize Employee
-        RZController.__init__(self, rMotor,zMotor) 
+        if rMotorCur == 0:
+            
+            rMotorCur = rMotor(DRV8825(dir_pin=13, step_pin=19, enable_pin=12, mode_pins=(16, 17, 20)))
+            
+
+        if zMotorCur == 0:
+        
+            zMotorCur = zMotor(DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27)))
+
+        if xMotorCur == 0:
+            # put thing here
+            xMotorCur = zMotorCur;
+
+        XController.__init__(self, xMotorCur)  # Initialize Employee
+        RZController.__init__(self, rMotorCur,zMotorCur) 
 
         self.status_X = 'AVAILABLE' 
         self.status_R = 'AVAILABLE' 
         self.status_Z = 'AVAILABLE'
-       
-
-    # Need to figure out threading
+     
 
   
          
@@ -88,7 +99,7 @@ class XRZController(XController, RZController):
 
 def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
 
-    controller = XRZController(xMotorCur,rMotorCur, zMotorCur)
+    controller = XRZController()
  
 
     print("Hello! What would you like to do?")
