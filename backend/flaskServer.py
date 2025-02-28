@@ -4,18 +4,19 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import startScript
 import stopScript
-import visualization.EggBinCollection as EggBinCollection
+# import visualization.EggBinCollection as EggBinCollection
 
 app = Flask(__name__)
 CORS(app)
 
 status = {"state": "Stopped"}  # Default state
-bin = EggBinCollection.EggBinCollection(3, 4, 1, None)
+# bin = EggBinCollection.EggBinCollection(3, 4, 1, None)
 
 @app.route('/status')
 def get_status():
-    bin_status = bin.print_status()
-    return jsonify({"status": status["state"], "bin_status": bin_status})
+    # bin_status = bin.print_status()
+    # return jsonify({"status": status["state"], "bin_status": bin_status})
+    pass
 
 @app.route('/start')
 def start():
