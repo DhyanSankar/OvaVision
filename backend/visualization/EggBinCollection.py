@@ -1,7 +1,7 @@
 import math
 import random
 import coord_funcs
-# import motors.xrzController
+import motors.xrzController as xrzController
 
 class EggBin():
     egg_array = [0,0,0,0]
