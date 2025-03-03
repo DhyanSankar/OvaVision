@@ -21,10 +21,9 @@ class EggBin():
         
         return coord_funcs.add_cartesian_coords(coord_funcs.cylindrical_to_cartesian(local_cylindrical_cord), 
                                                 coord_funcs.cylindrical_to_cartesian(self.pos))
-    
-
+        
 class EggBinCollection():
-    controller = xrzController() # xrzController
+    # controller = xrzController() # xrzController
     bin_array = []
 
     def __init__(self, layers, edges, gap):
@@ -35,16 +34,18 @@ class EggBinCollection():
                 pos = (4, 2*math.pi*j/edges, 2*(1-i/edges)) # 4 and 2 should be turned into controller.r and controller.z
                 self.bin_array[i].append(EggBin(pos, gap))
 
-    def __init__(self, layers, edges, gap, controller):
-        self.__init__(layers, edges, gap)
-        self.controller = controller
-
-
     def randomize_sex_for_test(self):
         for layer in self.bin_array:
             for bin in layer:
                 bin.egg_array = ["f" if random.random()<.5 else "m" for i in range(4)]
         return
+    
+class EntireMachinery(EggBinCollection):
+    controller = xrzController()
+
+    def __init__(self, layers, edges, gap, controller):
+        super.__init__(layers, edges, gap)
+        self.controller = controller
 
     def print_status(self):
         entire_str = self.controller.print_status()
