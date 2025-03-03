@@ -2,6 +2,7 @@ import math
 import random
 import coord_funcs
 import motors.xrzController as xrzController
+import copy
 
 class EggBin():
     egg_array = [0,0,0,0]
@@ -12,6 +13,10 @@ class EggBin():
         self.pos = pos
         self.egg_array = [["f" for j in range(dimensions[1])] for i in range(dimensions[0])]
         self.gap = gap
+
+    def __init__(self, pos, gap, egg_array, dimensions=(2,2)):
+        self.__init__(pos, gap, dimensions)
+        self.egg_array = egg_array
 
     def egg_index_to_cartesian_pos(self, index):
         # |0  3|
@@ -51,11 +56,14 @@ class EggBinCollection():
                 
         return True
     
-    def get_next_states(self, actions):
-        
-        return None
+    def get_next_state(self, action):
+        state = copy.deepcopy(self)
+        state.bin_array[action[1][0]][action[1][1]].egg_array[action[1][2]] = state.bin_array[action[0][0]][action[0][1]].egg_array[action[0][2]]
+        state.bin_array[action[0][0]][action[0][1]].egg_array[action[0][2]] = "0"
+
+        return state
     
-    def get_next_actions(self):
+    def get_all_actions(self):
         # select a male or female, select empty squares.
         empty_positions = []
         filled_positions = []
