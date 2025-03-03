@@ -53,17 +53,19 @@ class XRZController(XController, RZController):
     
     def setXRZ(self,targetX,targetR,targetZ):
 
-        self.setX(targetX)
+        self.setX(0)
         self.setR(targetR)
         self.setZ(targetZ)
+        self.setX(targetX)
+       
       
         print(f"Finished setting to (x = {self.getX()}, r = {self.getZ()}, z = {self.getZ()})")
 
 
-    def setX(self,targetX):
+    def setX(self, motor, targetX):
         self.status_X = 'UNAVAILABLE' 
         time.sleep(5)
-        super().setX(targetX)
+        super().setX(motor, targetX)
         self.status_X = 'AVAILABLE' 
 
     def setR(self,targetR):

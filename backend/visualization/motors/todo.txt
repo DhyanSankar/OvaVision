@@ -5,22 +5,7 @@ REMEMBER TO UNCOMMENT DRV8825 and GPIO
 identify ways of resetting motors to startig positions,
 perhaps need to store position always in a text file
 
-can also just have a manual calibration feature?
-at least for now probably would be good actually
+xrz controller:
 
-make things inheritency
-
-ON PI:
-Enable i2c: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
-
-r motor:
-Need to ensure r does go more than 360
-
-z motor:
-
-
-rz controller:
-
-x motor:
-Redo file, it's questionable now since working with different things
-Figure out ada fruit stuff
+Change xController to handle multiple x motors and use them accordingly
+Be able to return things

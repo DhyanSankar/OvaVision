@@ -2,24 +2,36 @@
 class XController:
 
 	def __init__(self, motor):
-		self. motor = motor
+		self.motors = []
 	
-	def setX(self,degrees):
-		print("x")
-		pass
+	def setX(self, motorName, x):
+		
+		haveFound = 0
+		for motor in self.motors:
+			if motor.name == motorName:
+				motor.setX(x)
+				haveFound = 1
+		
+		if (not haveFound):
+			print(f"Failed to find motor {motorName}")
     
 	def getX(self):
-		return 0
+		motorPositions = []
+		
+		for motor in self.motors:
+			motorPositions.append((motor.name,motor.getX()));
+		
+		return motorPositions;
        
 	def calibrateX(self, degrees = 0):
 
-		pass
+		for motor in self.motors:
+			motor.calibrateX(degrees);
     # Not sure how this should work actually, if we're using percents then calibration doesn't make much sense
 	def resetX(self):
-		pass
+		for motor in self.motors:
+			motor.reset();
 
-	def changeX(self):
-		pass
         
 
 
