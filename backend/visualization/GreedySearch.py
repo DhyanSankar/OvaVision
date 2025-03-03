@@ -5,7 +5,7 @@ import heapq
 import EggBinCollection
 
 
-class GreedyBestSearch():
+class GreedyBestSearch(): # maybe use Astar instead???
     """ Partial class representing a search strategy.
     To be subclassed (multiple inheritance) with a mixin that
     that implements a search algorithm (i.e. TreeSearchAgent or GraphSearchAgent)
@@ -21,13 +21,13 @@ class GreedyBestSearch():
         self.heuristic = self.hamming_heuristic
         self.frontier = []        
 
-    def enqueue(self, state: StateNode): # probably same as alpha as well
+    def enqueue(self, state: EggBinCollection): # probably same as alpha as well
         """ Add the state to the frontier, unless path COST exceeds the cutoff """
         # removed cutoff stuff
         heapq.heappush(self.frontier, (self.heuristic(state), state)) # used path_cost without adding the heuristic value
         self.total_enqueues+=1
 
-    def dequeue(self) -> Tuple[float, StateNode]:
+    def dequeue(self) -> Tuple[float, EggBinCollection]:
         """  Choose and remove the state with LOWEST ESTIMATED REMAINING COST TO GOAL from the frontier."""
         if self.frontier:
             self.total_extends += 1
@@ -36,11 +36,11 @@ class GreedyBestSearch():
         else:
             raise Exception("Frontier is empty, cannot dequeue.")
     
-    def hamming_heuristic(state: StateNode):
+    def hamming_heuristic(state: EggBinCollection):
         return 0
     
 
-class GraphSearchAlgorithm():
+class GraphSearchAlgorithm(GreedyBestSearch):
     """
     Mixin class for the graph search (extended state filter) algorithm.
     
@@ -52,9 +52,7 @@ class GraphSearchAlgorithm():
     The "in" keyword invokes a key lookup.
     Check out the documentation: https://docs.python.org/3/tutorial/datastructures.html#sets
     """
-    def search(self, 
-            initial_state : StateNode, 
-            ) -> Optional[StateNode]:
+    def search(self, initial_state : EggBinCollection):
         """ Perform a search from the initial_state, which constitutes the initial frontier.
         
         Graph search is similar to tree search, but it manages an "extended filter" 
@@ -91,7 +89,10 @@ class GraphSearchAlgorithm():
                 if next_state != state.parent:
                     self.enqueue(next_state)
 
+            # probably recode it so that i can just get all the things
+
         print("Search failed to find a solution.")
         return None
     
 # need to code the functions like get_next_state or get_all_actions
+ 

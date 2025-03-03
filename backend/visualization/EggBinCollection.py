@@ -40,6 +40,40 @@ class EggBinCollection():
                 bin.egg_array = ["f" if random.random()<.5 else "m" for i in range(4)]
         return
     
+    def is_goal_state(self, goal):
+        if len(self.bin_array)!=len(goal.bin_array) or len(self.bin_array[0]!=len(goal.bin_array[0])):
+            return False
+        
+        for i in range(len(self.bin_array)):
+            for j in range(len(self.bin_array[0])):
+                if self.bin_array[i][j].egg_array != goal.bin_aray[i][j].egg_array:
+                    return False
+                
+        return True
+    
+    def get_next_states(self, actions):
+        
+        return None
+    
+    def get_next_actions(self):
+        # select a male or female, select empty squares.
+        empty_positions = []
+        filled_positions = []
+
+        for i in range(len(self.bin_array)):
+            for j in range(len(self.bin_array[0])):
+                for k in range(4):
+                    if self.bin_array[i][j].egg_array[k] == "0":
+                        empty_positions.append([i,j,k])
+                    else:
+                        filled_positions.append([i,j,k])
+
+        return [[f,e] for f in filled_positions for e in empty_positions]
+    
+
+    # we need to get all next states
+    # we need to check if it is a goal state
+    
 class EntireMachinery(EggBinCollection):
     controller = xrzController()
 
