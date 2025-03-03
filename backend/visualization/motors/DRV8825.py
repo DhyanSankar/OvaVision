@@ -1,3 +1,7 @@
+# WHEN USING ON PI, UNCOMMENT BELOW CODE
+
+
+
 # import gpiozero as GPIO
 # import time
 
