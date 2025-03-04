@@ -12,7 +12,7 @@ class GreedyBestSearch(): # maybe use Astar instead???
 
     Greedy Best is implemented with a priority queue. 
     """
-    frontier : List[Tuple[float, EggBinCollection]]
+    frontier : List[Tuple[float, EggBinCollection.EggBinCollection]]
     total_extends = 0
     total_enqueues = 0
     heuristic = None
@@ -21,13 +21,13 @@ class GreedyBestSearch(): # maybe use Astar instead???
         self.heuristic = self.hamming_heuristic
         self.frontier = []        
 
-    def enqueue(self, state: EggBinCollection): # probably same as alpha as well
+    def enqueue(self, state: EggBinCollection.EggBinCollection): # probably same as alpha as well
         """ Add the state to the frontier, unless path COST exceeds the cutoff """
         # removed cutoff stuff
         heapq.heappush(self.frontier, (self.heuristic(state), state)) # used path_cost without adding the heuristic value
         self.total_enqueues+=1
 
-    def dequeue(self) -> Tuple[float, EggBinCollection]:
+    def dequeue(self) -> Tuple[float, EggBinCollection.EggBinCollection]:
         """  Choose and remove the state with LOWEST ESTIMATED REMAINING COST TO GOAL from the frontier."""
         if self.frontier:
             self.total_extends += 1
@@ -36,7 +36,7 @@ class GreedyBestSearch(): # maybe use Astar instead???
         else:
             raise Exception("Frontier is empty, cannot dequeue.")
     
-    def hamming_heuristic(state: EggBinCollection):
+    def hamming_heuristic(state: EggBinCollection.EggBinCollection):
         return 0
     
 
@@ -52,7 +52,7 @@ class GraphSearchAlgorithm(GreedyBestSearch):
     The "in" keyword invokes a key lookup.
     Check out the documentation: https://docs.python.org/3/tutorial/datastructures.html#sets
     """
-    def search(self, initial_state : EggBinCollection):
+    def search(self, initial_state : EggBinCollection.EggBinCollection, goal_state: EggBinCollection.EggBinCollection):
         """ Perform a search from the initial_state, which constitutes the initial frontier.
         
         Graph search is similar to tree search, but it manages an "extended filter" 
@@ -70,7 +70,7 @@ class GraphSearchAlgorithm(GreedyBestSearch):
             if state in extended_states:
                 continue  # Skip already extended states
         
-            if state.is_goal_state():
+            if state.is_goal_state(goal_state):
                 print("Goal state found!")
                 return state
 
@@ -93,6 +93,16 @@ class GraphSearchAlgorithm(GreedyBestSearch):
 
         print("Search failed to find a solution.")
         return None
+
+# we need to code state.parent
     
-# need to code the functions like get_next_state or get_all_actions
- 
+def main():
+    # instantiate a goal state
+    # GraphSearchAlgorithm.search(initial_state, goal_state)
+
+    # however, we must make the search algorithm print the actions. we do not have this yet. 
+    # maybe within EggBinCollection, we couild have self.parent and have self.actions_taken. they both start at none.
+    # we now have the above, but getting the appropriate actions taken would "backtrack" later. it is okay
+    # figure out a way to instantiate stuff correctly. 
+
+    return -1

@@ -29,6 +29,8 @@ class EggBin():
         
 class EggBinCollection():
     # controller = xrzController() # xrzController
+    parent = None
+    previous_action = None
     bin_array = []
 
     def __init__(self, layers, edges, gap):
@@ -60,6 +62,9 @@ class EggBinCollection():
         state = copy.deepcopy(self)
         state.bin_array[action[1][0]][action[1][1]].egg_array[action[1][2]] = state.bin_array[action[0][0]][action[0][1]].egg_array[action[0][2]]
         state.bin_array[action[0][0]][action[0][1]].egg_array[action[0][2]] = "0"
+
+        state.previous_action = action
+        state.parent = self
 
         return state
     
