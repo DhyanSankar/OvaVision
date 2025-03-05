@@ -32,14 +32,19 @@ class EggBinCollection():
     parent = None
     previous_action = None
     bin_array = []
+    r = 1 # perhaps set this to default vals later, or use this later to pass in params for xrzController
+    z = 1
 
     def __init__(self, layers, edges, gap):
 
         for i in range(layers):
             self.bin_array.append([])
             for j in range(edges):
-                pos = (4, 2*math.pi*j/edges, 2*(1-i/edges)) # 4 and 2 should be turned into controller.r and controller.z
+                pos = (self.r, self.z*math.pi*j/edges, self.z*(1-i/edges)) # 4 and 2 should be turned into controller.r and controller.z
                 self.bin_array[i].append(EggBin(pos, gap))
+
+    def __init__(self, full_arr, gap):
+        self.bin_array = [[EggBin((self.r, self.z*math.pi*j/len(full_arr[0]), self.z*(1-i/len(full_arr[0]))), gap, full_arr[i][j]) for j in range(len(full_arr[0]))] for i in range(len(full_arr))]
 
     def randomize_sex_for_test(self):
         for layer in self.bin_array:
