@@ -1,7 +1,7 @@
 # import gpiozero as GPIO
 class XMotor:
 
-	
+	# Would be
 
 	def __init__(self, motor,name):
 		self. motor = motor
