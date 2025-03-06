@@ -39,7 +39,8 @@ class XRZController(XController, RZController):
      
 
   
-         
+    def moveEgg():
+        pass       
     
     def setXRZWithThreading(self,targetX,targetR,targetZ):
         print(f"Started setting to (x = {targetX}, r = {targetR}, z = {targetZ})")

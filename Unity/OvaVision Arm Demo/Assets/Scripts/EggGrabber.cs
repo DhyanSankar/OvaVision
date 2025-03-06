@@ -7,13 +7,15 @@ public class EggGrabber : MonoBehaviour
 
     public GameObject heldEgg = null;      // Reference to the egg being held
 
+    public bool dropping = false;
+
     // When an object enters the trigger collider
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("collided");
         // Check if the object is an egg and we are not already holding one
-        if (heldEgg == null && other.CompareTag("Egg") && !Input.GetKey(KeyCode.P))
+        if (heldEgg == null && other.CompareTag("Egg") && !dropping)
         {
             // Grab the egg
             heldEgg = other.gameObject;
@@ -46,7 +48,7 @@ public class EggGrabber : MonoBehaviour
     // Check for release input every frame
     private void Update()
     {
-        if (heldEgg != null && Input.GetKey(KeyCode.P))
+        if (heldEgg != null && dropping)
         {
             // Release the egg: Unparent it and re-enable physics
 

@@ -26,7 +26,7 @@ public class LayerController : MonoBehaviour
         {
             if (extensionDistance < 0)
             {
-                extended[i] = true; 
+                extended[i] = false; 
             }
 
             layerArray[i] = Instantiate(layerPrefab,transform);
@@ -69,7 +69,7 @@ public class LayerController : MonoBehaviour
                 float newX;
 
 
-                if (extended[i])
+                if (!extended[i] ^ extensionDistance > 0) 
                 {
                     newX = currentPos.x + extensionSpeed * Time.deltaTime;
                 }

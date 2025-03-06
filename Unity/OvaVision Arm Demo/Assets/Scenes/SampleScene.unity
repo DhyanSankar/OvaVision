@@ -571,6 +571,53 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &158303661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 158303662}
+  - component: {fileID: 158303663}
+  m_Layer: 0
+  m_Name: EggGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &158303662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158303661}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2052177555}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &158303663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158303661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e361efedfe377b346ad20cfc2fb210d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggPrefab: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
+  numberOfLayers: 4
+  hasEgg: 00000100
 --- !u!1 &220211310
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +735,6 @@ GameObject:
   - component: {fileID: 281009989}
   - component: {fileID: 281009988}
   - component: {fileID: 281009987}
-  - component: {fileID: 281009985}
   m_Layer: 0
   m_Name: GrabberPoint
   m_TagString: Untagged
@@ -711,19 +757,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1642293299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &281009985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281009983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9864ab7d5a6b3846bc0582a741aec6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heldEgg: {fileID: 0}
 --- !u!114 &281009987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,6 +770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldEgg: {fileID: 0}
+  dropping: 0
 --- !u!65 &281009988
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1460,9 +1494,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d20c99ebdcc134489040313ff926b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 1
   minX: 1
   maxX: 3.5
+  targetExtension: 1
+  manual: 0
 --- !u!1 &1209518219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1935,63 +1971,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394080428}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1472554702
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 41.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_Name
-      value: Egg (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
 --- !u!1 &1517432726
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,6 +2004,7 @@ Transform:
   - {fileID: 867233283}
   - {fileID: 56494900}
   - {fileID: 1392402938}
+  - {fileID: 1922973430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1624312215
@@ -2540,7 +2520,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6984a030551bbd54a9a01ab6414a7d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 30
+  targetRotationY: 0
+  manual: 0
 --- !u!1 &1830025170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,9 +2612,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d20c99ebdcc134489040313ff926b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 1
   minX: 1
   maxX: 3.5
+  targetExtension: 1
+  manual: 0
+--- !u!1 &1922973429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1922973430}
+  - component: {fileID: 1922973431}
+  m_Layer: 0
+  m_Name: EggGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1922973430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922973429}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1517432727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1922973431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922973429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e361efedfe377b346ad20cfc2fb210d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggPrefab: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
+  numberOfLayers: 4
+  hasEgg: 01010001
 --- !u!1 &1965175904
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,9 +2715,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577dc2c300c472b48a59d1ae9d38bebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 4
   minY: 6
   maxY: 40
+  targetHeight: 6
+  manual: 0
 --- !u!23 &1965175907
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2738,6 +2771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1967345540}
+  - component: {fileID: 1967345541}
   m_Layer: 0
   m_Name: Robotic Arm
   m_TagString: Untagged
@@ -2761,6 +2795,40 @@ Transform:
   - {fileID: 1811781383}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1967345541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967345539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b98f82ef46d4c4f8d8f99054bf0e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rBase: {fileID: 1811781385}
+  zBase: {fileID: 1965175906}
+  xBases:
+  - {fileID: 1830025173}
+  - {fileID: 1171683367}
+  eggGrabber: {fileID: 281009987}
+  rBaseRotation: 0
+  zBaseHeight: 0
+  xBasesExtensions:
+  - 0
+  - 0
+  settingCoordinates: 0
+  manual: 0
+  incubators:
+  - {fileID: 1392402939}
+  - {fileID: 1772655999}
+  startIncubator: 1
+  startLayer: 3
+  endIncubator: 1
+  endLayer: 1
+  movingEgg: 1
+  startMoving: 0
 --- !u!1 &2052177554
 GameObject:
   m_ObjectHideFlags: 0
@@ -2794,6 +2862,7 @@ Transform:
   - {fileID: 2054335645}
   - {fileID: 1284113150}
   - {fileID: 1772655998}
+  - {fileID: 158303662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2054335644
@@ -2993,71 +3062,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5469670192796631307
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 655216001214324586, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2863018571497244189, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_Name
-      value: Egg
-      objectReference: {fileID: 0}
-    - target: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
-      propertyPath: m_TagString
-      value: Egg
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3068,5 +3072,3 @@ SceneRoots:
   - {fileID: 1967345540}
   - {fileID: 1517432727}
   - {fileID: 2052177555}
-  - {fileID: 5469670192796631307}
-  - {fileID: 1472554702}
