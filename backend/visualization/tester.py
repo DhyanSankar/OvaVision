@@ -27,7 +27,7 @@ def test_alg():
     initial_state = EggBinCollection.EggBinCollection(initial_arr, 1)
     goal_state = EggBinCollection.EggBinCollection(goal_arr, 1)
 
-    path_finder = GreedySearch.GraphSearchAlgorithm()
+    path_finder = GreedySearch.GraphSearchAlgorithm(goal_state)
     path_finder.search(initial_state, goal_state)
 
     return

@@ -16,15 +16,17 @@ class GreedyBestSearch(): # maybe use Astar instead???
     total_extends = 0
     total_enqueues = 0
     heuristic = None
+    goal = None
 
-    def __init__(self, heuristic = "hamming"):
+    def __init__(self, goal, heuristic = "hamming"):
         self.heuristic = self.hamming_heuristic
-        self.frontier = []        
+        self.frontier = []
+        self.goal = goal
 
     def enqueue(self, state: EggBinCollection.EggBinCollection): # probably same as alpha as well
         """ Add the state to the frontier, unless path COST exceeds the cutoff """
         # removed cutoff stuff
-        heapq.heappush(self.frontier, (self.heuristic(state), state)) # used path_cost without adding the heuristic value
+        heapq.heappush(self.frontier, (self.heuristic(state, self.goal), state)) # used path_cost without adding the heuristic value
         self.total_enqueues+=1
 
     def dequeue(self) -> Tuple[float, EggBinCollection.EggBinCollection]:
@@ -36,15 +38,16 @@ class GreedyBestSearch(): # maybe use Astar instead???
         else:
             raise Exception("Frontier is empty, cannot dequeue.")
     
-    def hamming_heuristic(state, goal):
+    def hamming_heuristic(self, state, goal):
         count = 0
 
         for i in range(len(state.bin_array)): # error here saying gsa has no attribute bin_array
             for j in range(len(state.bin_array[i])):
                 for k in range(4):
-                    if goal[i][j].egg_array[k] != "0" and goal[i][j].egg_array[k] != state[i][j].egg_array[k]:
-                        count += 0
+                    if goal.bin_array[i][j].egg_array[k] != "0" and goal.bin_array[i][j].egg_array[k] != state.bin_array[i][j].egg_array[k]:
+                        count += 1
 
+        print(count)
         return count
     
 

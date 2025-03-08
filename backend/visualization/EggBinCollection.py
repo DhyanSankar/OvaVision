@@ -46,6 +46,9 @@ class EggBinCollection():
     def __init__(self, full_arr, gap):
         self.bin_array = [[EggBin((self.r, self.z*math.pi*j/len(full_arr[0]), self.z*(1-i/len(full_arr[0]))), gap, full_arr[i][j]) for j in range(len(full_arr[0]))] for i in range(len(full_arr))]
 
+    def __lt__(self, other):
+        return False
+
     def randomize_sex_for_test(self):
         for layer in self.bin_array:
             for bin in layer:
@@ -53,12 +56,12 @@ class EggBinCollection():
         return
     
     def is_goal_state(self, goal):
-        if len(self.bin_array)!=len(goal.bin_array) or len(self.bin_array[0]!=len(goal.bin_array[0])):
+        if len(self.bin_array)!=len(goal.bin_array) or len(self.bin_array[0])!=len(goal.bin_array[0]):
             return False
         
         for i in range(len(self.bin_array)):
             for j in range(len(self.bin_array[0])):
-                if self.bin_array[i][j].egg_array != goal.bin_aray[i][j].egg_array:
+                if self.bin_array[i][j].egg_array != goal.bin_array[i][j].egg_array:
                     return False
                 
         return True
