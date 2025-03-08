@@ -1,14 +1,15 @@
 import EggBinCollection
+import GreedySearch
 
 def main():
     # initiate stuff
     layers, edges, gap = 4, 10, 2
-    collection = EggBinCollection.EggBinCollection(layers, edges, gap)
+    # collection = EggBinCollection.EggBinCollection(layers, edges, gap)
 
-    print("hi")
-    collection.randomize_sex_for_test()
+    # print("hi")
+    # collection.randomize_sex_for_test()
 
-    collection.print_status()
+    # collection.print_status()
 
 def test_alg():
     initial_arr = [
@@ -26,6 +27,9 @@ def test_alg():
     initial_state = EggBinCollection.EggBinCollection(initial_arr, 1)
     goal_state = EggBinCollection.EggBinCollection(goal_arr, 1)
 
+    path_finder = GreedySearch.GraphSearchAlgorithm()
+    path_finder.search(initial_state, goal_state)
+
     return
 
-main()
+test_alg()

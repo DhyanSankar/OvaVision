@@ -17,7 +17,7 @@ class GreedyBestSearch(): # maybe use Astar instead???
     total_enqueues = 0
     heuristic = None
 
-    def __init__(self, goal_state, heuristic = "hamming"):
+    def __init__(self, heuristic = "hamming"):
         self.heuristic = self.hamming_heuristic
         self.frontier = []        
 
@@ -36,8 +36,16 @@ class GreedyBestSearch(): # maybe use Astar instead???
         else:
             raise Exception("Frontier is empty, cannot dequeue.")
     
-    def hamming_heuristic(state: EggBinCollection.EggBinCollection):
-        return 0
+    def hamming_heuristic(state, goal):
+        count = 0
+
+        for i in range(len(state.bin_array)): # error here saying gsa has no attribute bin_array
+            for j in range(len(state.bin_array[i])):
+                for k in range(4):
+                    if goal[i][j].egg_array[k] != "0" and goal[i][j].egg_array[k] != state[i][j].egg_array[k]:
+                        count += 0
+
+        return count
     
 
 class GraphSearchAlgorithm(GreedyBestSearch):
@@ -96,13 +104,5 @@ class GraphSearchAlgorithm(GreedyBestSearch):
 
 # we need to code state.parent
     
-def main():
-    # instantiate a goal state
-    # GraphSearchAlgorithm.search(initial_state, goal_state)
+'''HEURISTICS AND PATH COSTS'''
 
-    # however, we must make the search algorithm print the actions. we do not have this yet. 
-    # maybe within EggBinCollection, we couild have self.parent and have self.actions_taken. they both start at none.
-    # we now have the above, but getting the appropriate actions taken would "backtrack" later. it is okay
-    # figure out a way to instantiate stuff correctly. 
-
-    return -1

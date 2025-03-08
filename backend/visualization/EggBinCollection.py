@@ -1,7 +1,7 @@
 import math
 import random
 import coord_funcs
-import motors.xrzController as xrzController
+# import motors.xrzController as xrzController
 import copy
 
 class EggBin():
@@ -9,14 +9,13 @@ class EggBin():
     pos = (0, 0, 0)
     gap = 0 # dummy value: distance between each eggs
 
-    def __init__(self, pos, gap, dimensions=(2,2)):
+    def __init__(self, pos, gap, egg_array=None, dimensions=(2,2)):
         self.pos = pos
-        self.egg_array = [["f" for j in range(dimensions[1])] for i in range(dimensions[0])]
         self.gap = gap
+        self.egg_array = [["f" for j in range(dimensions[1])] for i in range(dimensions[0])]
 
-    def __init__(self, pos, gap, egg_array, dimensions=(2,2)):
-        self.__init__(pos, gap, dimensions)
-        self.egg_array = egg_array
+        if egg_array is not None:
+            self.egg_array = egg_array
 
     def egg_index_to_cartesian_pos(self, index):
         # |0  3|
@@ -34,6 +33,7 @@ class EggBinCollection():
     bin_array = []
     r = 1 # perhaps set this to default vals later, or use this later to pass in params for xrzController
     z = 1
+    path_cost = 0
 
     def __init__(self, layers, edges, gap):
 
@@ -93,7 +93,7 @@ class EggBinCollection():
     # we need to check if it is a goal state
     
 class EntireMachinery(EggBinCollection):
-    controller = xrzController()
+    # controller = xrzController()
 
     def __init__(self, layers, edges, gap, controller):
         super.__init__(layers, edges, gap)
