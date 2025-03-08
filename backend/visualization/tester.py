@@ -24,26 +24,24 @@ def test_alg():
         [["0", "0", "0", "0"], ["0", "0", "0", "0"]],
     ]
 
+    print("GOAL")
+    print(goal_arr)
+
     initial_state = EggBinCollection.EggBinCollection(initial_arr, 1)
     goal_state = EggBinCollection.EggBinCollection(goal_arr, 1)
 
     path_finder = GreedySearch.GraphSearchAlgorithm(goal_state)
-    end = path_finder.search(initial_state, goal_state)
+    paths_taken = path_finder.search(initial_state, goal_state)
 
-    # paths_taken_reversed = []
-    # paths_taken = []
-    # current = end
+    current = initial_state
+    print("SORT START")
+    print(initial_arr)
 
-    # while current.parent!=None:
-    #     print(current.previous_action)
-    #     paths_taken_reversed.append(current.previous_action)
-    #     current=current.parent
-
-    # # print(paths_taken_reversed)
-
-    # for i in range(len(paths_taken_reversed)):
-    #     paths_taken.append(paths_taken_reversed[len(paths_taken_reversed)-i-1])
+    for i in range(len(paths_taken)):
+        current = current.get_next_state(paths_taken[i])
+        print(current.output_as_array())
+    print("SORT END")
     
-    return end
+    return paths_taken
 
 print(test_alg())

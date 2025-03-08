@@ -91,9 +91,13 @@ class EggBinCollection():
 
         return [[f,e] for f in filled_positions for e in empty_positions]
     
+    def output_as_array(self):
+        arr = copy.deepcopy(self.bin_array)
+        for i in range(len(arr)):
+            for j in range(len(arr[i])):
+                arr[i][j]=arr[i][j].egg_array
 
-    # we need to get all next states
-    # we need to check if it is a goal state
+        return arr
     
 class EntireMachinery(EggBinCollection):
     # controller = xrzController()
