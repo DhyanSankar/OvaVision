@@ -47,7 +47,7 @@ class GreedyBestSearch(): # maybe use Astar instead???
                     if goal.bin_array[i][j].egg_array[k] != "0" and goal.bin_array[i][j].egg_array[k] != state.bin_array[i][j].egg_array[k]:
                         count += 1
 
-        print(count)
+        # print(count)
         return count
     
 
@@ -83,7 +83,22 @@ class GraphSearchAlgorithm(GreedyBestSearch):
         
             if state.is_goal_state(goal_state):
                 print("Goal state found!")
-                return state
+
+                paths_taken_reversed = []
+                paths_taken = []
+                current = state
+
+                while current.parent!=None:
+                    # print(current.previous_action)
+                    paths_taken_reversed.append(current.previous_action)
+                    current=current.parent
+
+                # print(paths_taken_reversed)
+
+                for i in range(len(paths_taken_reversed)):
+                    paths_taken.append(paths_taken_reversed[len(paths_taken_reversed)-i-1])
+                
+                return paths_taken
 
             # if gui_callback_fn(state):
             #     print("Search terminated by GUI callback.")

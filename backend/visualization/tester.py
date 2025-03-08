@@ -28,8 +28,22 @@ def test_alg():
     goal_state = EggBinCollection.EggBinCollection(goal_arr, 1)
 
     path_finder = GreedySearch.GraphSearchAlgorithm(goal_state)
-    path_finder.search(initial_state, goal_state)
+    end = path_finder.search(initial_state, goal_state)
 
-    return
+    # paths_taken_reversed = []
+    # paths_taken = []
+    # current = end
 
-test_alg()
+    # while current.parent!=None:
+    #     print(current.previous_action)
+    #     paths_taken_reversed.append(current.previous_action)
+    #     current=current.parent
+
+    # # print(paths_taken_reversed)
+
+    # for i in range(len(paths_taken_reversed)):
+    #     paths_taken.append(paths_taken_reversed[len(paths_taken_reversed)-i-1])
+    
+    return end
+
+print(test_alg())
