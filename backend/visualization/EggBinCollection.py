@@ -103,12 +103,12 @@ class EntireMachinery(EggBinCollection):
     controller = xrzController.XRZController()
 
     def __init__(self, layers, edges, gap=1, controller=None):
-        super.__init__(layers, edges, gap)
+        super().__init__(layers, edges, gap)
         if self.controller != None:
             self.controller = controller
     
     def __init__(self, arr, gap=1, controller=None):
-        super.__init__(arr, gap)
+        super().__init__(arr, gap)
         if self.controller != None:
             self.controller = controller
 
