@@ -9,6 +9,12 @@ function App() {
   const [x, setX] = useState(""); // X coordinate
   const [r, setR] = useState(""); // R coordinate
   const [z, setZ] = useState(""); // Z coordinate
+  const [incubator, setIncubator] = useState(""); // Incubator number
+  const [layer, setLayer] = useState(""); // Layer number
+  const [location, setLocation] = useState(""); // Location number
+  const [targetIncubator, setTargetIncubator] = useState(""); // Target incubator number
+  const [targetLayer, setTargetLayer] = useState(""); // Target layer number
+  const [targetLocation, setTargetLocation] = useState(""); // Target location number
 
   useEffect(() => {
     fetchStatus(); // Fetch current status on load
@@ -46,6 +52,24 @@ function App() {
     }
   };
 
+  const handleMoveEgg = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/moveEgg`, {
+        incubator,
+        layer,
+        location,
+        target_incubator: targetIncubator,
+        target_layer: targetLayer,
+        target_location: targetLocation,
+      });
+      setMessage(response.data.message); // Update message
+      setStatus(response.data.status); // Update status
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error connecting to server");
+    }
+  };
+
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Flask-Controlled React App</h1>
@@ -75,6 +99,46 @@ function App() {
           onChange={(e) => setZ(e.target.value)}
         />
         <button onClick={handleMoveArm}>Move Arm</button>
+      </div>
+      <div>
+        <h2>Move Egg</h2>
+        <input
+          type="text"
+          placeholder="Incubator #"
+          value={incubator}
+          onChange={(e) => setIncubator(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Layer #"
+          value={layer}
+          onChange={(e) => setLayer(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Location #"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Target Incubator #"
+          value={targetIncubator}
+          onChange={(e) => setTargetIncubator(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Target Layer #"
+          value={targetLayer}
+          onChange={(e) => setTargetLayer(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Target Location #"
+          value={targetLocation}
+          onChange={(e) => setTargetLocation(e.target.value)}
+        />
+        <button onClick={handleMoveEgg}>Move Egg</button>
       </div>
     </div>
   );

@@ -14,8 +14,6 @@ import os
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(root_dir)
 
-
-
 import backend.visualization.EggBinCollection as EggBinCollection
 
 app = Flask(__name__)
@@ -53,6 +51,22 @@ def move_arm():
     z = data.get('z')
     bin.setxrz(x, r, z)
     return jsonify({"message": "Set position executed", "status": status["state"]})
+
+@app.route('/moveEgg', methods=['POST'])
+def move_egg():
+    global status
+    status["state"] = "Running"
+    data = request.json
+    incubator = data.get('incubator')
+    layer = data.get('layer')
+    location = data.get('location')
+    target_incubator = data.get('target_incubator')
+    target_layer = data.get('target_layer')
+    target_location = data.get('target_location')
+    
+    # Move the egg within the machine
+    machine.move_egg(incubator, layer, location, target_incubator, target_layer, target_location)
+    return jsonify({"message": "Egg moved successfully", "status": status["state"]})
 
 
 if __name__ == '__main__':
