@@ -4,18 +4,27 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import startScript
 import stopScript
-import visualization.EggBinCollection as EggBinCollection
+import sys
+import os
+
+# Add the root directory to sys.path
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(root_dir)
+
+
+
+import backend.visualization.EggBinCollection as EggBinCollection
 
 app = Flask(__name__)
 CORS(app)
 
 status = {"state": "Stopped"}  # Default state
-bin = EggBinCollection.EggBinCollection(3, 4, 1, None)
+machine = EggBinCollection.EntireMachinery(3, 4)
 
 @app.route('/status')
 def get_status():
-    bin_status = bin.print_status()
-    return jsonify({"status": status["state"], "bin_status": bin_status})
+    machine_status = machine.print_status()
+    return jsonify({"status": status["state"], "bin_status": machine_status})
 
 @app.route('/start')
 def start():

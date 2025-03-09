@@ -1,7 +1,7 @@
 import math
 import random
-import coord_funcs
-import motors.xrzController as xrzController
+import backend.visualization.coord_funcs as coord_funcs
+import backend.visualization.motors.xrzController as xrzController
 import copy
 
 class EggBin():
@@ -100,7 +100,7 @@ class EggBinCollection():
         return arr
     
 class EntireMachinery(EggBinCollection):
-    controller = xrzController.xrzController()
+    controller = xrzController.XRZController()
 
     def __init__(self, layers, edges, gap=1, controller=None):
         super.__init__(layers, edges, gap)
