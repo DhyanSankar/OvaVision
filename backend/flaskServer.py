@@ -15,11 +15,14 @@ root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(root_dir)
 
 import backend.visualization.EggBinCollection as EggBinCollection
+import backend.visualization.EggSorter as EggSorter
+
 
 app = Flask(__name__)
 CORS(app)
 
 status = {"state": "Stopped"}  # Default state
+sorter = EggSorter.EggSorter()
 machine = EggBinCollection.EntireMachinery([[["0"]]])
 
 @app.route('/status')
@@ -64,8 +67,11 @@ def move_egg():
     target_layer = data.get('target_layer')
     target_location = data.get('target_location')
     
-    # Move the egg within the machine
-    machine.move_egg(incubator, layer, location, target_incubator, target_layer, target_location)
+    # Create the command in the required format
+    command = [[layer, incubator, location], [target_layer, target_incubator, target_location]]
+    
+    # Execute the egg movement using EggSorter
+    sorter.execute_egg_movement(command)
     return jsonify({"message": "Egg moved successfully", "status": status["state"]})
 
 

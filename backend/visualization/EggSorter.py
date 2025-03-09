@@ -1,9 +1,17 @@
-import EggBinCollection
-import GreedySearch
-import motors.xrzController as xrzController
 import time
 import math
 import threading
+import sys
+import os
+
+# Add the root directory to sys.path
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+sys.path.append(root_dir)
+
+import backend.visualization.EggBinCollection as EggBinCollection
+import backend.visualization.GreedySearch as GreedySearch
+import backend.visualization.motors.xrzController as xrzController
+
 
 class EggSorter:
     """Class to manage egg sorting with thread control and stop mechanism"""
