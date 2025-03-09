@@ -28,7 +28,7 @@ class XRZController(XController, RZController):
 
         if xMotorCur == 0:
             # PUT REAL X
-            xMotorCur = zMotorCur;
+            xMotorCur = zMotorCur
 
         XController.__init__(self, xMotorCur)  # Initialize Employee
         RZController.__init__(self, rMotorCur,zMotorCur) 
