@@ -22,7 +22,7 @@ app = Flask(__name__)
 CORS(app)
 
 status = {"state": "Stopped"}  # Default state
-machine = EggBinCollection.EntireMachinery(3, 4)
+machine = EggBinCollection.EntireMachinery([[["0"]]])
 
 @app.route('/status')
 def get_status():
