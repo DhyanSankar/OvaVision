@@ -6,6 +6,9 @@ const API_URL = "http://127.0.0.1:5000"; // Flask backend URL
 function App() {
   const [status, setStatus] = useState("Stopped"); // Default status
   const [message, setMessage] = useState(""); // Message from API
+  const [x, setX] = useState(""); // X coordinate
+  const [r, setR] = useState(""); // R coordinate
+  const [z, setZ] = useState(""); // Z coordinate
 
   useEffect(() => {
     fetchStatus(); // Fetch current status on load
@@ -32,6 +35,17 @@ function App() {
     }
   };
 
+  const handleMoveArm = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/moveArm`, { x, r, z });
+      setMessage(response.data.message); // Update message
+      setStatus(response.data.status); // Update status
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error connecting to server");
+    }
+  };
+
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Flask-Controlled React App</h1>
@@ -39,7 +53,29 @@ function App() {
       <p>{message}</p>
       <button onClick={() => handleAction("start")}>Start</button>
       <button onClick={() => handleAction("stop")}>Stop</button>
-      <button onClick={fetchStatus}>Update Status</button> 
+      <button onClick={fetchStatus}>Update Status</button>
+      <div>
+        <h2>Move Arm</h2>
+        <input
+          type="text"
+          placeholder="X coordinate"
+          value={x}
+          onChange={(e) => setX(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="R coordinate"
+          value={r}
+          onChange={(e) => setR(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Z coordinate"
+          value={z}
+          onChange={(e) => setZ(e.target.value)}
+        />
+        <button onClick={handleMoveArm}>Move Arm</button>
+      </div>
     </div>
   );
 }
