@@ -149,6 +149,24 @@ const Dashboard = () => {
             </Card>
           </>
         )}
+        {section === "logs" && (
+          <>
+            <Card>
+              <h2>Egg Sorting Stats</h2>
+              <p>Total Eggs Sorted: {totalEggs}</p>
+              <p>Success Rate: {successRate.toFixed(2)}%</p>
+            </Card>
+
+            <Card>
+              <h2>Egg Movement History</h2>
+              <ul>
+                {movementHistory.map((item, index) => (
+                  <li key={index}>Egg moved from {item.from} to {item.to} at {item.time}</li>
+                ))}
+              </ul>
+            </Card>
+          </>
+        )}
       </main>
     </div>
   );
