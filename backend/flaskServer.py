@@ -1,3 +1,6 @@
+# flask --app flaskServer run
+# OR
+# python -m flask --app flaskServer run
 # flask --app backend/flaskServer run
 # cd ovavision-frontend + npm start
 from flask import Flask, jsonify, request
