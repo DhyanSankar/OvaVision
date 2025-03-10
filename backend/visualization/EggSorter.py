@@ -26,17 +26,12 @@ class EggSorter:
         self.commands = []
         self.thread_lock = threading.Lock()
     
-    def initialize(self):
+    def initialize(self, initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]]):
         """Initialize controller and egg collection"""
         # Initialize the controller directly - xrzController handles motor initialization
         self.controller = xrzController.XRZController()
         
         # Initialize the egg collection with the same data as test_alg
-        initial_arr = [
-            [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
-            [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
-            [["0", "0", "0", "0"], ["0", "0", "0", "0"]],
-        ]
         
         self.egg_collection = EggBinCollection.EggBinCollection(initial_arr, 1)
         
@@ -157,6 +152,7 @@ class EggSorter:
             time.sleep(1)
             
             print(f"Movement completed: {egg_type} egg moved from {source} to {destination}")
+            print(f"Resulting in the following egg arrangement: { self.egg_collection.output_as_array() }")
         except Exception as e:
             print(f"Error during movement: {e}")
             raise

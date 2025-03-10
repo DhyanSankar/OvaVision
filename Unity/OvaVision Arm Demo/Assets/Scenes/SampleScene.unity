@@ -617,7 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eggPrefab: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
   numberOfLayers: 4
-  hasEgg: 00000100
+  hasEgg: 00000000
 --- !u!1 &220211310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,7 +2663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eggPrefab: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
   numberOfLayers: 4
-  hasEgg: 01010001
+  hasEgg: 01010101
 --- !u!1 &1965175904
 GameObject:
   m_ObjectHideFlags: 0
