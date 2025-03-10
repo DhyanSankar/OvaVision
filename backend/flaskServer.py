@@ -23,7 +23,13 @@ CORS(app)
 
 status = {"state": "Stopped"}  # Default state
 sorter = EggSorter.EggSorter()
-machine = EggBinCollection.EntireMachinery([[["0", "0", "0", "0"], ["0", "0", "0", "0"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]], 1)
+
+initial_arr = [
+            [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
+            [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
+            [["0", "0", "0", "0"], ["0", "0", "0", "0"]],
+        ]
+machine = EggBinCollection.EntireMachinery(initial_arr, 1)
 
 @app.route('/status')
 def get_status():

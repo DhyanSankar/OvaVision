@@ -106,7 +106,7 @@ class XRZController(XController, RZController):
         print("  R:  " + self.status_Z + " - " + str(self.getZ()))
 
         entire_str += "Motor Status:\n" + "\tX:\t" + self.status_X + "\n\tR:\t" + self.status_R + "\n\tZ:\t" + self.status_Z + "\n" 
-        
+        return entire_str
 
 def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
 
