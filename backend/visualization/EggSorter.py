@@ -190,7 +190,7 @@ class EggSorter:
         # Here you could save to a file if needed
         return current_state
     
-    def run_alg(initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]], goal_arr = [[["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]],]):
+    def run_alg(self, initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]], goal_arr = [[["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]]):
         """
         Test function from tester.py to generate the sorting commands
         Returns a list of commands to execute
@@ -208,13 +208,13 @@ class EggSorter:
         text += "\nGOAL ARRAY:  \n" + goal_state.print_status() 
 
         text+=("\nSORT START\n")
-        text += initial_state.print_status
+        text += initial_state.print_status()
 
         for i in range(len(paths_taken)):
-            text += "---------\n"
+            text += "------------\n"
             current = current.get_next_state(paths_taken[i])
-            text += current.output_as_array()
-        text += "SORT END" + "\nACTIONS TAKEN: " + paths_taken
+            text += current.print_status()
+        text += "SORT END" + "\nACTIONS TAKEN: " + str(paths_taken)
         
         return text
 
@@ -248,14 +248,14 @@ def test_alg():
     text += "\nGOAL ARRAY:  \n" + goal_state.print_status() 
 
     text+=("\nSORT START\n")
-    text += initial_state.print_status
+    text += initial_state.print_status()
 
     for i in range(len(paths_taken)):
-        text += "---------\n"
+        text += "------------\n"
         current = current.get_next_state(paths_taken[i])
-        text += current.output_as_array()
-    text += "SORT END" + "\nACTIONS TAKEN: " + paths_taken
-    
+        text += current.print_status()
+    text += "SORT END" + "\nACTIONS TAKEN: " + str(paths_taken)
+
     return text
 
 
