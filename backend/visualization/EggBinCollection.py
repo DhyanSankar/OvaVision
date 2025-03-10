@@ -100,6 +100,7 @@ class EggBinCollection():
         return arr
     
     def print_status(self):        
+        entire_str = ""
         for layer in self.bin_array:
             top_string = ""
             bottom_string = ""
@@ -134,7 +135,7 @@ class EntireMachinery(EggBinCollection):
         
         estimate = 'NOT AVAILABLE'
 
-        entire_str += "\n" + super.print_status()
+        entire_str += "\n" + super().print_status()
 
         print("Estimated Sorting Time Remaining: " + estimate)
         entire_str += "Estimated Sorted Time Remaining: " + estimate

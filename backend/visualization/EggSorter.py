@@ -189,6 +189,34 @@ class EggSorter:
         
         # Here you could save to a file if needed
         return current_state
+    
+    def run_alg(initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]], goal_arr = [[["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]],]):
+        """
+        Test function from tester.py to generate the sorting commands
+        Returns a list of commands to execute
+        """
+
+        initial_state = EggBinCollection.EggBinCollection(initial_arr, 1)
+        goal_state = EggBinCollection.EggBinCollection(goal_arr, 1)
+
+        path_finder = GreedySearch.GraphSearchAlgorithm(goal_state)
+        paths_taken = path_finder.search(initial_state, goal_state)
+
+        current = initial_state
+
+        text = "START ARRAY: \n" + initial_state.print_status()
+        text += "\nGOAL ARRAY:  \n" + goal_state.print_status() 
+
+        text+=("\nSORT START\n")
+        text += initial_state.print_status
+
+        for i in range(len(paths_taken)):
+            text += "---------\n"
+            current = current.get_next_state(paths_taken[i])
+            text += current.output_as_array()
+        text += "SORT END" + "\nACTIONS TAKEN: " + paths_taken
+        
+        return text
 
 
 def test_alg():
