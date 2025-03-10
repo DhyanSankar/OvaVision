@@ -65,10 +65,9 @@ class XRZController(XController, RZController):
     
     def setXRZ(self,targetX,targetR,targetZ):
 
-        self.setX(0)
+        self.setX(0, targetX)
         self.setR(targetR)
         self.setZ(targetZ)
-        self.setX(targetX)
        
       
         print(f"Finished setting to (x = {self.getX()}, r = {self.getZ()}, z = {self.getZ()})")

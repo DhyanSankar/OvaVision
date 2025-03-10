@@ -22,21 +22,23 @@ app = Flask(__name__)
 CORS(app)
 
 status = {"state": "Stopped"}  # Default state
-sorter = EggSorter.EggSorter()
 
 initial_arr = [
             [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
             [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
             [["0", "0", "0", "0"], ["0", "0", "0", "0"]],
         ]
+
+sorter = EggSorter.EggSorter()
+sorter.initialize(initial_arr)
 machine = EggBinCollection.EntireMachinery(initial_arr, 1)
 
 @app.route('/status')
 def get_status():
     machine_status = machine.print_status()
-    # sorter_status = sorter.run_alg(initial_arr)
-    # print("sorter status", sorter_status)
-    return jsonify({"status": status["state"], "bin_status": machine_status + '\n' + "sorter_status"})
+    sorter_status = sorter.run_alg(initial_arr)
+    print("sorter status", sorter_status)
+    return jsonify({"status": status["state"], "bin_status": machine_status + '\n' + "Sort operations: \n" + sorter_status})
 
 @app.route('/start')
 def start():
@@ -68,12 +70,12 @@ def move_egg():
     global status
     status["state"] = "Running"
     data = request.json
-    incubator = data.get('incubator')
-    layer = data.get('layer')
-    location = data.get('location')
-    target_incubator = data.get('target_incubator')
-    target_layer = data.get('target_layer')
-    target_location = data.get('target_location')
+    incubator = int(data.get('incubator'))
+    layer = int(data.get('layer'))
+    location = int(data.get('location'))
+    target_incubator = int(data.get('target_incubator'))
+    target_layer = int(data.get('target_layer'))
+    target_location = int(data.get('target_location'))
     
     # Create the command in the required format
     command = [[layer, incubator, location], [target_layer, target_incubator, target_location]]

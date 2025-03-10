@@ -26,17 +26,12 @@ class EggSorter:
         self.commands = []
         self.thread_lock = threading.Lock()
     
-    def initialize(self):
+    def initialize(self, initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]]):
         """Initialize controller and egg collection"""
         # Initialize the controller directly - xrzController handles motor initialization
         self.controller = xrzController.XRZController()
         
         # Initialize the egg collection with the same data as test_alg
-        initial_arr = [
-            [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
-            [["m", "m", "m", "m"], ["f", "f", "f", "f"]],
-            [["0", "0", "0", "0"], ["0", "0", "0", "0"]],
-        ]
         
         self.egg_collection = EggBinCollection.EggBinCollection(initial_arr, 1)
         
@@ -78,17 +73,13 @@ class EggSorter:
                     command = self.commands[current_index]
                 
                 print(f"\nExecuting command {current_index+1}/{len(self.commands)}")
+                
+                # Execute the egg movement which now updates the array directly
                 self.execute_egg_movement(command)
                 
-                # Update the egg collection state to match the physical state
+                # Update command index (skip updating egg_collection since it's already updated)
                 with self.thread_lock:
-                    self.egg_collection = self.egg_collection.get_next_state(command)
                     self.current_command_index += 1
-                
-                # Print the current arrangement
-                print("Current arrangement:")
-                for layer in self.egg_collection.output_as_array():
-                    print(layer)
                 
                 # Check if we need to stop after each command
                 if self.stop_requested:
@@ -112,6 +103,7 @@ class EggSorter:
     def execute_egg_movement(self, command):
         """
         Executes a single egg movement command using the xrzController
+        and updates egg array
         
         Args:
             command: A command in format [[src_layer, src_bin, src_egg], [dst_layer, dst_bin, dst_egg]]
@@ -156,7 +148,22 @@ class EggSorter:
             print("Placing egg...")
             time.sleep(1)
             
+            # Update the egg collection bin array directly
+            with self.thread_lock:
+                # Update destination with source egg type
+                self.egg_collection.bin_array[dst_layer][dst_bin].egg_array[dst_egg] = egg_type
+                
+                # Clear the source position
+                self.egg_collection.bin_array[src_layer][src_bin].egg_array[src_egg] = "0"
+            
             print(f"Movement completed: {egg_type} egg moved from {source} to {destination}")
+            
+            # Print the updated array
+            print("Updated egg arrangement:")
+            current_arrangement = self.egg_collection.output_as_array()
+            for layer in current_arrangement:
+                print(layer)
+            
         except Exception as e:
             print(f"Error during movement: {e}")
             raise
@@ -190,7 +197,7 @@ class EggSorter:
         # Here you could save to a file if needed
         return current_state
     
-    def run_alg(initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]], goal_arr = [[["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]],]):
+    def run_alg(self, initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]], goal_arr = [[["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["f", "f", "f", "f"], ["m", "m", "m", "m"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]]):
         """
         Test function from tester.py to generate the sorting commands
         Returns a list of commands to execute
@@ -208,13 +215,13 @@ class EggSorter:
         text += "\nGOAL ARRAY:  \n" + goal_state.print_status() 
 
         text+=("\nSORT START\n")
-        text += initial_state.print_status
+        text += initial_state.print_status()
 
         for i in range(len(paths_taken)):
-            text += "---------\n"
+            text += "------------\n"
             current = current.get_next_state(paths_taken[i])
-            text += current.output_as_array()
-        text += "SORT END" + "\nACTIONS TAKEN: " + paths_taken
+            text += current.print_status()
+        text += "SORT END" + "\nACTIONS TAKEN: " + str(paths_taken)
         
         return text
 
@@ -248,14 +255,14 @@ def test_alg():
     text += "\nGOAL ARRAY:  \n" + goal_state.print_status() 
 
     text+=("\nSORT START\n")
-    text += initial_state.print_status
+    text += initial_state.print_status()
 
     for i in range(len(paths_taken)):
-        text += "---------\n"
+        text += "------------\n"
         current = current.get_next_state(paths_taken[i])
-        text += current.output_as_array()
-    text += "SORT END" + "\nACTIONS TAKEN: " + paths_taken
-    
+        text += current.print_status()
+    text += "SORT END" + "\nACTIONS TAKEN: " + str(paths_taken)
+
     return text
 
 
