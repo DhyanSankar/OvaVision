@@ -36,9 +36,9 @@ machine = EggBinCollection.EntireMachinery(initial_arr, 1)
 @app.route('/status')
 def get_status():
     machine_status = machine.print_status()
-    # sorter_status = sorter.run_alg(initial_arr)
-    # print("sorter status", sorter_status)
-    return jsonify({"status": status["state"], "bin_status": machine_status + '\n' + "sorter_status"})
+    sorter_status = sorter.run_alg(initial_arr)
+    print("sorter status", sorter_status)
+    return jsonify({"status": status["state"], "bin_status": machine_status + '\n' + "Sort operations: \n" + sorter_status})
 
 @app.route('/start')
 def start():
