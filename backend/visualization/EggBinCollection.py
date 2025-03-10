@@ -99,6 +99,24 @@ class EggBinCollection():
 
         return arr
     
+    def print_status(self):        
+        entire_str = ""
+        for layer in self.bin_array:
+            top_string = ""
+            bottom_string = ""
+
+            for bin in layer:
+                top_string += "|" + bin.egg_array[0] + " " + bin.egg_array[3] + "|  "
+                bottom_string += "|" + bin.egg_array[1] + " " + bin.egg_array[2] + "|  "
+            
+            print(top_string)
+            print(bottom_string)
+            print("\n")
+
+            entire_str += top_string + "\n" + bottom_string + "\n\n"
+
+        return entire_str
+    
 class EntireMachinery(EggBinCollection):
     controller = xrzController.XRZController()
 
@@ -117,19 +135,7 @@ class EntireMachinery(EggBinCollection):
         
         estimate = 'NOT AVAILABLE'
 
-        for layer in self.bin_array:
-            top_string = ""
-            bottom_string = ""
-
-            for bin in layer:
-                top_string += "|" + bin.egg_array[0] + " " + bin.egg_array[3] + "|  "
-                bottom_string += "|" + bin.egg_array[1] + " " + bin.egg_array[2] + "|  "
-            
-            print(top_string)
-            print(bottom_string)
-            print("\n")
-
-            entire_str += top_string + "\n" + bottom_string + "\n\n"
+        entire_str += "\n" + super().print_status()
 
         print("Estimated Sorting Time Remaining: " + estimate)
         entire_str += "Estimated Sorted Time Remaining: " + estimate

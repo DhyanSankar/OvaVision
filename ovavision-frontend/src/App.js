@@ -115,7 +115,7 @@ const Dashboard = () => {
           <Card>
             <h1>Status</h1>
             <p><strong>Current Status:</strong> {status}</p>
-            <p>{message}</p>
+            <pre>{message}</pre>
             <Button onClick={fetchStatus} className="update-btn"><Loader2 /> Update Status</Button>
           </Card>
         )}
