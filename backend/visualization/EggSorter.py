@@ -73,17 +73,13 @@ class EggSorter:
                     command = self.commands[current_index]
                 
                 print(f"\nExecuting command {current_index+1}/{len(self.commands)}")
+                
+                # Execute the egg movement which now updates the array directly
                 self.execute_egg_movement(command)
                 
-                # Update the egg collection state to match the physical state
+                # Update command index (skip updating egg_collection since it's already updated)
                 with self.thread_lock:
-                    self.egg_collection = self.egg_collection.get_next_state(command)
                     self.current_command_index += 1
-                
-                # Print the current arrangement
-                print("Current arrangement:")
-                for layer in self.egg_collection.output_as_array():
-                    print(layer)
                 
                 # Check if we need to stop after each command
                 if self.stop_requested:
@@ -107,6 +103,7 @@ class EggSorter:
     def execute_egg_movement(self, command):
         """
         Executes a single egg movement command using the xrzController
+        and updates egg array
         
         Args:
             command: A command in format [[src_layer, src_bin, src_egg], [dst_layer, dst_bin, dst_egg]]
@@ -151,8 +148,22 @@ class EggSorter:
             print("Placing egg...")
             time.sleep(1)
             
+            # Update the egg collection bin array directly
+            with self.thread_lock:
+                # Update destination with source egg type
+                self.egg_collection.bin_array[dst_layer][dst_bin].egg_array[dst_egg] = egg_type
+                
+                # Clear the source position
+                self.egg_collection.bin_array[src_layer][src_bin].egg_array[src_egg] = "0"
+            
             print(f"Movement completed: {egg_type} egg moved from {source} to {destination}")
-            print(f"Resulting in the following egg arrangement: { self.egg_collection.output_as_array() }")
+            
+            # Print the updated array
+            print("Updated egg arrangement:")
+            current_arrangement = self.egg_collection.output_as_array()
+            for layer in current_arrangement:
+                print(layer)
+            
         except Exception as e:
             print(f"Error during movement: {e}")
             raise
