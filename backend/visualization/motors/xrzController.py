@@ -1,15 +1,26 @@
 # import gpiozero as GPIO
 import time
 import math
-import threading;
+import threading
+import sys
+import os
 
-from DRV8825 import DRV8825
-from zMotor import zMotor
-from rMotor import rMotor
+# Add the root directory to sys.path
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+sys.path.append(root_dir)
+
+from visualization.motors.DRV8825 import DRV8825
+from visualization.motors.zMotor import zMotor
+from visualization.motors.rMotor import rMotor
+from visualization.motors.xController import XController
+from visualization.motors.rzController import RZController
+# from DRV8825 import DRV8825
+# from zMotor import zMotor
+# from rMotor import rMotor
 
 
-from xController import XController;
-from rzController import RZController;
+# from xController import XController;
+# from rzController import RZController;
 
 
 
@@ -28,7 +39,7 @@ class XRZController(XController, RZController):
 
         if xMotorCur == 0:
             # PUT REAL X
-            xMotorCur = zMotorCur;
+            xMotorCur = zMotorCur
 
         XController.__init__(self, xMotorCur)  # Initialize Employee
         RZController.__init__(self, rMotorCur,zMotorCur) 

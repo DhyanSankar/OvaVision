@@ -2,7 +2,14 @@ from typing import List, Collection, Tuple, Callable, Optional, Union, Set, Dict
 import random
 from collections import deque
 import heapq
-import EggBinCollection
+import sys
+import os
+
+# Add the root directory to sys.path
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+sys.path.append(root_dir)
+
+import backend.visualization.EggBinCollection as EggBinCollection
 
 
 class GreedyBestSearch(): # maybe use Astar instead???
@@ -16,15 +23,17 @@ class GreedyBestSearch(): # maybe use Astar instead???
     total_extends = 0
     total_enqueues = 0
     heuristic = None
+    goal = None
 
-    def __init__(self, goal_state, heuristic = "hamming"):
+    def __init__(self, goal, heuristic = "hamming"):
         self.heuristic = self.hamming_heuristic
-        self.frontier = []        
+        self.frontier = []
+        self.goal = goal
 
     def enqueue(self, state: EggBinCollection.EggBinCollection): # probably same as alpha as well
         """ Add the state to the frontier, unless path COST exceeds the cutoff """
         # removed cutoff stuff
-        heapq.heappush(self.frontier, (self.heuristic(state), state)) # used path_cost without adding the heuristic value
+        heapq.heappush(self.frontier, (self.heuristic(state, self.goal), state)) # used path_cost without adding the heuristic value
         self.total_enqueues+=1
 
     def dequeue(self) -> Tuple[float, EggBinCollection.EggBinCollection]:
@@ -36,8 +45,17 @@ class GreedyBestSearch(): # maybe use Astar instead???
         else:
             raise Exception("Frontier is empty, cannot dequeue.")
     
-    def hamming_heuristic(state: EggBinCollection.EggBinCollection):
-        return 0
+    def hamming_heuristic(self, state, goal):
+        count = 0
+
+        for i in range(len(state.bin_array)): # error here saying gsa has no attribute bin_array
+            for j in range(len(state.bin_array[i])):
+                for k in range(4):
+                    if goal.bin_array[i][j].egg_array[k] != "0" and goal.bin_array[i][j].egg_array[k] != state.bin_array[i][j].egg_array[k]:
+                        count += 1
+
+        # print(count)
+        return count
     
 
 class GraphSearchAlgorithm(GreedyBestSearch):
@@ -72,7 +90,22 @@ class GraphSearchAlgorithm(GreedyBestSearch):
         
             if state.is_goal_state(goal_state):
                 print("Goal state found!")
-                return state
+
+                paths_taken_reversed = []
+                paths_taken = []
+                current = state
+
+                while current.parent!=None:
+                    # print(current.previous_action)
+                    paths_taken_reversed.append(current.previous_action)
+                    current=current.parent
+
+                # print(paths_taken_reversed)
+
+                for i in range(len(paths_taken_reversed)):
+                    paths_taken.append(paths_taken_reversed[len(paths_taken_reversed)-i-1])
+                
+                return paths_taken
 
             # if gui_callback_fn(state):
             #     print("Search terminated by GUI callback.")
@@ -96,13 +129,5 @@ class GraphSearchAlgorithm(GreedyBestSearch):
 
 # we need to code state.parent
     
-def main():
-    # instantiate a goal state
-    # GraphSearchAlgorithm.search(initial_state, goal_state)
+'''HEURISTICS AND PATH COSTS'''
 
-    # however, we must make the search algorithm print the actions. we do not have this yet. 
-    # maybe within EggBinCollection, we couild have self.parent and have self.actions_taken. they both start at none.
-    # we now have the above, but getting the appropriate actions taken would "backtrack" later. it is okay
-    # figure out a way to instantiate stuff correctly. 
-
-    return -1

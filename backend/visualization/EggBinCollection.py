@@ -1,7 +1,7 @@
 import math
 import random
-import coord_funcs
-import motors.xrzController as xrzController
+import backend.visualization.coord_funcs as coord_funcs
+import backend.visualization.motors.xrzController as xrzController
 import copy
 
 class EggBin():
@@ -9,14 +9,13 @@ class EggBin():
     pos = (0, 0, 0)
     gap = 0 # dummy value: distance between each eggs
 
-    def __init__(self, pos, gap, dimensions=(2,2)):
+    def __init__(self, pos, gap, egg_array=None, dimensions=(2,2)):
         self.pos = pos
-        self.egg_array = [["f" for j in range(dimensions[1])] for i in range(dimensions[0])]
         self.gap = gap
+        self.egg_array = [["f" for j in range(dimensions[1])] for i in range(dimensions[0])]
 
-    def __init__(self, pos, gap, egg_array, dimensions=(2,2)):
-        self.__init__(pos, gap, dimensions)
-        self.egg_array = egg_array
+        if egg_array is not None:
+            self.egg_array = egg_array
 
     def egg_index_to_cartesian_pos(self, index):
         # |0  3|
@@ -34,6 +33,7 @@ class EggBinCollection():
     bin_array = []
     r = 1 # perhaps set this to default vals later, or use this later to pass in params for xrzController
     z = 1
+    path_cost = 0
 
     def __init__(self, layers, edges, gap):
 
@@ -46,6 +46,9 @@ class EggBinCollection():
     def __init__(self, full_arr, gap):
         self.bin_array = [[EggBin((self.r, self.z*math.pi*j/len(full_arr[0]), self.z*(1-i/len(full_arr[0]))), gap, full_arr[i][j]) for j in range(len(full_arr[0]))] for i in range(len(full_arr))]
 
+    def __lt__(self, other):
+        return False
+
     def randomize_sex_for_test(self):
         for layer in self.bin_array:
             for bin in layer:
@@ -53,12 +56,12 @@ class EggBinCollection():
         return
     
     def is_goal_state(self, goal):
-        if len(self.bin_array)!=len(goal.bin_array) or len(self.bin_array[0]!=len(goal.bin_array[0])):
+        if len(self.bin_array)!=len(goal.bin_array) or len(self.bin_array[0])!=len(goal.bin_array[0]):
             return False
         
         for i in range(len(self.bin_array)):
             for j in range(len(self.bin_array[0])):
-                if self.bin_array[i][j].egg_array != goal.bin_aray[i][j].egg_array:
+                if self.bin_array[i][j].egg_array != goal.bin_array[i][j].egg_array:
                     return False
                 
         return True
@@ -88,16 +91,26 @@ class EggBinCollection():
 
         return [[f,e] for f in filled_positions for e in empty_positions]
     
+    def output_as_array(self):
+        arr = copy.deepcopy(self.bin_array)
+        for i in range(len(arr)):
+            for j in range(len(arr[i])):
+                arr[i][j]=arr[i][j].egg_array
 
-    # we need to get all next states
-    # we need to check if it is a goal state
+        return arr
     
 class EntireMachinery(EggBinCollection):
-    controller = xrzController()
+    controller = xrzController.XRZController()
 
-    def __init__(self, layers, edges, gap, controller):
-        super.__init__(layers, edges, gap)
-        self.controller = controller
+    def __init__(self, layers, edges, gap=1, controller=None):
+        super().__init__(layers, edges, gap)
+        if self.controller != None:
+            self.controller = controller
+    
+    def __init__(self, arr, gap=1, controller=xrzController.XRZController()):
+        super().__init__(arr, gap)
+        if self.controller != None:
+            self.controller = controller
 
     def print_status(self):
         entire_str = self.controller.print_status()
