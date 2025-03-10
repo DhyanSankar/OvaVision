@@ -107,7 +107,7 @@ class EntireMachinery(EggBinCollection):
         if self.controller != None:
             self.controller = controller
     
-    def __init__(self, arr, gap=1, controller=None):
+    def __init__(self, arr, gap=1, controller=xrzController.XRZController()):
         super().__init__(arr, gap)
         if self.controller != None:
             self.controller = controller
