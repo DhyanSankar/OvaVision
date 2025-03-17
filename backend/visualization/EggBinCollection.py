@@ -4,28 +4,6 @@ import backend.visualization.coord_funcs as coord_funcs
 import backend.visualization.motors.xrzController as xrzController
 import copy
 import backend.visualization.EggSorter as EggSorter
-
-class EggBin():
-    egg_array = [0,0,0,0]
-    pos = (0, 0, 0)
-    gap = 0 # dummy value: distance between each eggs
-
-    def __init__(self, pos, gap, egg_array=None, dimensions=(2,2)):
-        self.pos = pos
-        self.gap = gap
-        self.egg_array = [["f" for j in range(dimensions[1])] for i in range(dimensions[0])]
-
-        if egg_array is not None:
-            self.egg_array = egg_array
-
-    def egg_index_to_cartesian_pos(self, index):
-        # |0  3|
-        # |1  2|
-
-        local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.pi/4 + index*math.pi/2 + self.pos[1], self.pos[2])
-        
-        return coord_funcs.add_cartesian_coords(coord_funcs.cylindrical_to_cartesian(local_cylindrical_cord), 
-                                                coord_funcs.cylindrical_to_cartesian(self.pos))
         
 class EggBinCollection():
     # controller = xrzController() # xrzController
@@ -45,7 +23,7 @@ class EggBinCollection():
     def randomize_sex_for_test(self):
         for layer in self.bin_array:
             for bin in layer:
-                bin.egg_array = ["f" if random.random()<.33 else "0" if random.random()<.33 else "m" for i in range(4)]
+                bin = ["f" if random.random()<.33 else "0" if random.random()<.33 else "m" for i in range(4)]
         return
     
     def is_goal_state(self, goal):
@@ -54,15 +32,15 @@ class EggBinCollection():
         
         for i in range(len(self.bin_array)):
             for j in range(len(self.bin_array[0])):
-                if self.bin_array[i][j].egg_array != goal.bin_array[i][j].egg_array:
+                if self.bin_array[i][j] != goal.bin_array[i][j]:
                     return False
                 
         return True
     
     def get_next_state(self, action):
         state = copy.deepcopy(self)
-        state.bin_array[action[1][0]][action[1][1]].egg_array[action[1][2]] = state.bin_array[action[0][0]][action[0][1]].egg_array[action[0][2]]
-        state.bin_array[action[0][0]][action[0][1]].egg_array[action[0][2]] = "0"
+        state.bin_array[action[1][0]][action[1][1]][action[1][2]] = state.bin_array[action[0][0]][action[0][1]][action[0][2]]
+        state.bin_array[action[0][0]][action[0][1]][action[0][2]] = "0"
 
         state.previous_action = action
         state.parent = self
@@ -77,14 +55,14 @@ class EggBinCollection():
         for i in range(len(self.bin_array)):
             for j in range(len(self.bin_array[0])):
                 for k in range(4):
-                    if self.bin_array[i][j].egg_array[k] == "0":
+                    if self.bin_array[i][j][k] == "0":
                         empty_positions.append([i,j,k])
                     else:
                         filled_positions.append([i,j,k])
 
         return [[f,e] for f in filled_positions for e in empty_positions]
     
-    def output_as_array(self):
+    def output_as_array(self): # refactor stuff using this
         arr = copy.deepcopy(self.bin_array)
         for i in range(len(arr)):
             for j in range(len(arr[i])):
@@ -99,8 +77,8 @@ class EggBinCollection():
             bottom_string = ""
 
             for bin in layer:
-                top_string += "|" + bin.egg_array[0] + " " + bin.egg_array[3] + "|  "
-                bottom_string += "|" + bin.egg_array[1] + " " + bin.egg_array[2] + "|  "
+                top_string += "|" + bin[0] + " " + bin[3] + "|  "
+                bottom_string += "|" + bin[1] + " " + bin[2] + "|  "
             
             print(top_string)
             print(bottom_string)
@@ -115,6 +93,7 @@ class EntireMachinery(EggBinCollection):
     sorter = EggSorter()
     r = 1 # default values
     z = 1
+    gap = 1
 
     def __init__(self, layers, edges, gap=1, controller=None):
         super().__init__(layers, edges, gap)

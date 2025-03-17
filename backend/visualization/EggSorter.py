@@ -113,7 +113,7 @@ class EggSorter:
         dst_layer, dst_bin, dst_egg = destination
         
         # Get source egg type for logging
-        egg_type = self.egg_collection.bin_array[src_layer][src_bin].egg_array[src_egg]
+        egg_type = self.egg_collection.bin_array[src_layer][src_bin][src_egg]
         
         print(f"Moving {egg_type} egg from [{src_layer}][{src_bin}][{src_egg}] to [{dst_layer}][{dst_bin}][{dst_egg}]")
         
@@ -151,16 +151,16 @@ class EggSorter:
             # Update the egg collection bin array directly
             with self.thread_lock:
                 # Update destination with source egg type
-                self.egg_collection.bin_array[dst_layer][dst_bin].egg_array[dst_egg] = egg_type
+                self.egg_collection.bin_array[dst_layer][dst_bin][dst_egg] = egg_type
                 
                 # Clear the source position
-                self.egg_collection.bin_array[src_layer][src_bin].egg_array[src_egg] = "0"
+                self.egg_collection.bin_array[src_layer][src_bin][src_egg] = "0"
             
             print(f"Movement completed: {egg_type} egg moved from {source} to {destination}")
             
             # Print the updated array
             print("Updated egg arrangement:")
-            current_arrangement = self.egg_collection.output_as_array()
+            current_arrangement = self.egg_collection.bin_array
             for layer in current_arrangement:
                 print(layer)
             
@@ -186,7 +186,7 @@ class EggSorter:
     def save_current_state(self):
         """Save the current state of the egg collection"""
         with self.thread_lock:
-            current_state = self.egg_collection.output_as_array()
+            current_state = self.egg_collection.bin_array
         
         print("\nCurrent egg arrangement:")
         for layer in current_state:
