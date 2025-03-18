@@ -164,6 +164,28 @@ const Dashboard = () => {
                   <li key={index}>Egg moved from {item.from} to {item.to} at {item.time}</li>
                 ))}
               </ul>
+              <Button
+                onClick={() => {
+                  const csvContent = [
+                    ["From", "To", "Time"],
+                    ...movementHistory.map(item => [item.from, item.to, item.time])
+                  ]
+                    .map(e => e.join(","))
+                    .join("\n");
+
+                  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+                  const url = URL.createObjectURL(blob);
+                  const link = document.createElement("a");
+                  link.href = url;
+                  link.setAttribute("download", "egg_movement_history.csv");
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+                className="export-btn"
+              >
+                Export CSV
+              </Button>
             </Card>
           </>
         )}
