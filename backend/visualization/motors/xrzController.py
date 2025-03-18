@@ -101,8 +101,8 @@ class XRZController(XController, RZController):
 
         print("Motor Status:")
         print("  X:  " + self.status_X + " - " + str(self.getX()))
-        print("  Z:  " + self.status_R + " - " + str(self.getR()))
-        print("  R:  " + self.status_Z + " - " + str(self.getZ()))
+        print("  R:  " + self.status_R + " - " + str(self.getR()))
+        print("  Z:  " + self.status_Z + " - " + str(self.getZ()))
 
         entire_str += "Motor Status:\n" + "\tX:\t" + self.status_X + "\n\tR:\t" + self.status_R + "\n\tZ:\t" + self.status_Z + "\n" 
         return entire_str
