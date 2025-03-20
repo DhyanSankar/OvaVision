@@ -51,7 +51,7 @@ class GreedyBestSearch(): # maybe use Astar instead???
         for i in range(len(state.bin_array)): # error here saying gsa has no attribute bin_array
             for j in range(len(state.bin_array[i])):
                 for k in range(4):
-                    if goal.bin_array[i][j].egg_array[k] != "0" and goal.bin_array[i][j].egg_array[k] != state.bin_array[i][j].egg_array[k]:
+                    if goal.bin_array[i][j][k] != "0" and goal.bin_array[i][j][k] not in ["0", state.bin_array[i][j][k]]:
                         count += 1
 
         # print(count)

@@ -30,10 +30,15 @@ class EggBinCollection():
         if len(self.bin_array)!=len(goal.bin_array) or len(self.bin_array[0])!=len(goal.bin_array[0]):
             return False
         
-        for i in range(len(self.bin_array)):
-            for j in range(len(self.bin_array[0])):
-                if self.bin_array[i][j] != goal.bin_array[i][j]:
+        for i in range(len(goal.bin_array)):
+            for j in range(len(goal.bin_array[0])):
+                if goal.bin_array[i][j] == "0" and self.bin_array[i][j] != "0":
                     return False
+                elif goal.bin_array[i][j] != "0" and self.bin_array[i][j] not in ["0", goal.bin_array[i][j]]:
+                    return False
+                
+        # whether for each thing in the goal array, if the current array either has everything 0 or m/f
+        # have remaining ones be empty
                 
         return True
     
