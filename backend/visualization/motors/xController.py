@@ -10,6 +10,7 @@ class XController:
 		haveFound = 0
 		for motor in self.motors:
 			if motor.name == motorName:
+				print(motor)
 				motor.setX(x)
 				haveFound = 1
 		
@@ -31,7 +32,7 @@ class XController:
     # Not sure how this should work actually, if we're using percents then calibration doesn't make much sense
 	def resetX(self):
 		for motor in self.motors:
-			motor.reset();
+			motor.resetX();
 
         
 

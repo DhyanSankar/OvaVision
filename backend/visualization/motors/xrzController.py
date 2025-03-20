@@ -63,10 +63,10 @@ class XRZController(XController, RZController):
     def moveEgg(startX, startR, startZ, endX, endR, endZ):
         pass       
     
-    def setXRZWithThreading(self,targetX,targetR,targetZ):
+    def setXRZWithThreading(self,targetX,targetR,targetZ,motor):
         print(f"Started setting to (x = {targetX}, r = {targetR}, z = {targetZ})")
 
-        XRZThread = threading.Thread(target=self.setXRZ, args=(targetX,targetR,targetZ,))
+        XRZThread = threading.Thread(target=self.setXRZ, args=(targetX,targetR,targetZ,motor))
         XRZThread.start()
         print("Starting thread")    
 
@@ -133,6 +133,8 @@ def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
     while action != "QUIT":
 
         if action == "SET":
+            print("Enter a motor name: ",end='')
+            motorName = input()
             print("Enter an x (from 0 to 100): ",end='')
             x = float(input())
             print("Enter an r (from 0 to 360): ",end='')
@@ -140,7 +142,7 @@ def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
             print("Enter an z (from 0 to 100): ",end='')
             z = float(input())
        
-            controller.setXRZWithThreading(x,r, z)
+            controller.setXRZWithThreading(x,r, z,motorName)
                
 
       
