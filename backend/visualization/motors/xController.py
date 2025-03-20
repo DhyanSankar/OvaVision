@@ -1,10 +1,11 @@
 # import gpiozero as GPIO
 class XController:
 
-	def __init__(self, motor):
+	def __init__(self, motors):
 		self.motors = []
+		self.motors = motors;
 	
-	def setX(self, motorName, x):
+	def setX(self, x, motorName):
 		
 		haveFound = 0
 		for motor in self.motors:

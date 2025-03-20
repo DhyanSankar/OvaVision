@@ -12,6 +12,7 @@ sys.path.append(root_dir)
 from visualization.motors.DRV8825 import DRV8825
 from visualization.motors.zMotor import zMotor
 from visualization.motors.rMotor import rMotor
+from visualization.motors.xMotor import xMotor
 from visualization.motors.xController import XController
 from visualization.motors.rzController import RZController
 # from DRV8825 import DRV8825
@@ -26,6 +27,8 @@ from visualization.motors.rzController import RZController
 
 class XRZController(XController, RZController):
 
+    motorRotations = {"GRAB":0, "CAM":180};
+
     def __init__(self,xMotorCur = 0, rMotorCur = 0, zMotorCur = 0):
 		
         if rMotorCur == 0:
@@ -37,11 +40,15 @@ class XRZController(XController, RZController):
         
             zMotorCur = zMotor(DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27)))
 
-        if xMotorCur == 0:
+        if xMotorsCur == 0:
             # PUT REAL X
-            xMotorCur = zMotorCur
+            xMotorsCur = []
 
-        XController.__init__(self, xMotorCur)  # Initialize Employee
+            # Dummy motors
+            xMotorsCur.append(xMotor(DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27)), "GRAB"))
+            xMotorsCur.append(xMotor(DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27)), "CAM"))
+
+        XController.__init__(self, xMotorsCur)  # Initialize Employee
         RZController.__init__(self, rMotorCur,zMotorCur) 
 
         self.status_X = 'AVAILABLE' 
@@ -63,26 +70,26 @@ class XRZController(XController, RZController):
     def getXRZ(self):
         return (self.getX(),self.getR(),self.getZ())
     
-    def setXRZ(self,targetX,targetR,targetZ):
+    def setXRZ(self,targetX,targetR,targetZ, motor = "GRAB"):
 
-        self.setX(0, targetX)
-        self.setR(targetR)
+        self.setX(targetX, motor)
+        self.setR(targetR, motor)
         self.setZ(targetZ)
        
       
         print(f"Finished setting to (x = {self.getX()}, r = {self.getZ()}, z = {self.getZ()})")
 
 
-    def setX(self, motor, targetX):
+    def setX(self, targetX, motor = "GRAB"):
         self.status_X = 'UNAVAILABLE' 
         time.sleep(5)
-        super().setX(motor, targetX)
+        super().setX(targetX, motor)
         self.status_X = 'AVAILABLE' 
 
-    def setR(self,targetR):
+    def setR(self,targetR, motor):
         self.status_R = 'UNAVAILABLE' 
         time.sleep(5)
-        super().setR(targetR)
+        super().setR((targetR + self.motorRotations[motor])%360)
         self.status_R = 'AVAILABLE' 
 
     def setZ(self,targetZ):
