@@ -7,5 +7,4 @@ perhaps need to store position always in a text file
 
 xrz controller:
 
-Change xController to handle multiple x motors and use them accordingly
-Be able to return things
+make xrzloop handle threads well, keep track of if things are active
