@@ -7,3 +7,10 @@ class CameraController:
 
     ## Should figure out what operations the camera should do
 
+
+    def takePicture(self):
+        pass
+
+    def doCameraStuff(self):
+        pass
+     
