@@ -1,5 +1,5 @@
 # import gpiozero as GPIO
-class XMotor:
+class xMotor:
 
 	# Would be
 

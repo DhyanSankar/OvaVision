@@ -9,12 +9,15 @@ import os
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 sys.path.append(root_dir)
 
-from visualization.motors.DRV8825 import DRV8825
-from visualization.motors.zMotor import zMotor
-from visualization.motors.rMotor import rMotor
-from visualization.motors.xMotor import xMotor
-from visualization.motors.xController import XController
-from visualization.motors.rzController import RZController
+from DRV8825 import DRV8825
+
+from DRV8825 import DRV8825
+from zMotor import zMotor
+from rMotor import rMotor
+from xMotor import xMotor
+from xController import XController
+from rzController import RZController
+
 # from DRV8825 import DRV8825
 # from zMotor import zMotor
 # from rMotor import rMotor
@@ -29,7 +32,7 @@ class XRZController(XController, RZController):
 
     motorRotations = {"GRAB":0, "CAM":180};
 
-    def __init__(self,xMotorCur = 0, rMotorCur = 0, zMotorCur = 0):
+    def __init__(self,xMotorsCur = 0, rMotorCur = 0, zMotorCur = 0):
 		
         if rMotorCur == 0:
             
@@ -132,7 +135,7 @@ def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
         if action == "SET":
             print("Enter an x (from 0 to 100): ",end='')
             x = float(input())
-            print("Enter an r (from -180 to 180): ",end='')
+            print("Enter an r (from 0 to 360): ",end='')
             r = float(input())
             print("Enter an z (from 0 to 100): ",end='')
             z = float(input())
