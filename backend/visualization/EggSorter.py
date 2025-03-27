@@ -26,14 +26,14 @@ class EggSorter:
         self.commands = []
         self.thread_lock = threading.Lock()
     
-    def initialize(self, initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]]):
+    def initialize(self, machine, initial_arr=[[["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["m", "m", "m", "m"], ["f", "f", "f", "f"]], [["0", "0", "0", "0"], ["0", "0", "0", "0"]]]):
         """Initialize controller and egg collection"""
         # Initialize the controller directly - xrzController handles motor initialization
         self.controller = xrzController.XRZController()
         
         # Initialize the egg collection with the same data as test_alg
         
-        self.egg_collection = EggBinCollection.EggBinCollection(initial_arr, 1)
+        self.egg_collection = machine
         
         # Reset the controller
         print("Initializing controller...")
@@ -203,8 +203,8 @@ class EggSorter:
         Returns a list of commands to execute
         """
 
-        initial_state = EggBinCollection.EggBinCollection(initial_arr, 1)
-        goal_state = EggBinCollection.EggBinCollection(goal_arr, 1)
+        initial_state = EggBinCollection.EggBinCollection(initial_arr)
+        goal_state = EggBinCollection.EggBinCollection(goal_arr)
 
         path_finder = GreedySearch.GraphSearchAlgorithm(goal_state)
         paths_taken = path_finder.search(initial_state, goal_state)

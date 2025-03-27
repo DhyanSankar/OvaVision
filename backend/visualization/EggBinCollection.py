@@ -99,15 +99,16 @@ class EntireMachinery(EggBinCollection):
     z = 1
     gap = 1
 
-    def __init__(self, layers, edges, gap=1, sorter=EggSorter(), controller=None):
+    def __init__(self, layers, edges, sorter, gap=1, controller=None):
         super().__init__(layers, edges, gap)
         self.sorter = sorter
         if self.controller != None:
             self.controller = controller
     
-    def __init__(self, arr, gap=1, sorter=EggSorter(), controller=xrzController.XRZController()):
-        super().__init__(arr, gap)
+    def __init__(self, arr, sorter, gap=1, controller=xrzController.XRZController()):
+        super().__init__(arr)
         self.sorter = sorter
+        self.gap = gap
         if self.controller != None:
             self.controller = controller
 

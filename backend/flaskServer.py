@@ -30,8 +30,8 @@ initial_arr = [
         ]
 
 sorter = EggSorter.EggSorter()
-sorter.initialize(initial_arr)
-machine = EggBinCollection.EntireMachinery(initial_arr, sorter=sorter)
+machine = EggBinCollection.EntireMachinery(initial_arr, sorter)
+sorter.initialize(machine, initial_arr)
 
 @app.route('/status')
 def get_status():
