@@ -118,7 +118,7 @@ class EntireMachinery(EggBinCollection):
         # |0  3|
         # |1  2|
 
-        local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.pi/4 + k*math.pi/2 + self.pos[1], self.pos[2])
+        local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.pi/4 + k*math.pi/2 + self.eggbin_pos_cylindrical[1], self.eggbin_pos_cylindrical[2])
         
         return coord_funcs.add_cartesian_coords(coord_funcs.cylindrical_to_cartesian(local_cylindrical_cord), 
                                                 coord_funcs.cylindrical_to_cartesian(self.eggbin_pos(i,j)))
