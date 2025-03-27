@@ -113,13 +113,13 @@ class EntireMachinery(EggBinCollection):
             self.controller = controller
 
     def eggbin_pos_cylindrical(self, i, j): # i, j are the first two positions in the array
-        return (self.r, self.z*math.pi*j/len(self.bin_array[0]), self.z*(1-i/len(self.bin_arr[0]))) # r, z from controller itself?
+        return (self.r, self.z*math.pi*j/len(self.bin_array[0]), self.z*(1-i/len(self.bin_array[0]))) # r, z from controller itself?
     
     def egg_pos_cartesian(self, i, j, k): # specifies the exact position of egg in the stuff
         # |0  3|
         # |1  2|
 
-        local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.pi/4 + k*math.pi/2 + self.pos[1], self.pos[2])
+        local_cylindrical_cord = (self.gap*(2**(1/2)),3*math.pi/4 + k*math.pi/2 + self.eggbin_pos_cylindrical[1], self.eggbin_pos_cylindrical[2])
         
         return coord_funcs.add_cartesian_coords(coord_funcs.cylindrical_to_cartesian(local_cylindrical_cord), 
                                                 coord_funcs.cylindrical_to_cartesian(self.eggbin_pos(i,j)))

@@ -7,7 +7,7 @@ import os
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 sys.path.append(root_dir)
 
-from visualization.motors.DRV8825 import DRV8825
+# from visualization.motors.DRV8825 import DRV8825
 # Should restructure to make it so we pass in a specific motor, do class constructions
 
 class rMotor:
