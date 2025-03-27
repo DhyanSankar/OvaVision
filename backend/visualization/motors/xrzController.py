@@ -6,10 +6,9 @@ import sys
 import os
 
 # Add the root directory to sys.path
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
-sys.path.append(root_dir)
+# root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+# sys.path.append(root_dir)
 
-from DRV8825 import DRV8825
 
 from DRV8825 import DRV8825
 from zMotor import zMotor
