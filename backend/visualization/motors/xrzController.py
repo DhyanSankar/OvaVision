@@ -49,7 +49,7 @@ class XRZController(XController, RZController):
             xMotorsCur = []
 
             # Dummy motors
-            xMotorsCur.append(xMotor(None), "GRAB")
+            xMotorsCur.append(xMotor(None, "GRAB"))
           
 
         XController.__init__(self, xMotorsCur)  # Initialize Employee
