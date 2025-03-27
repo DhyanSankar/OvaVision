@@ -5,6 +5,12 @@ import threading
 import sys
 import os
 
+<<<<<<< HEAD
+# Add the root directory to sys.path
+# root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+# sys.path.append(root_dir)
+
+=======
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 sys.path.append(root_dir)
 
@@ -16,6 +22,7 @@ from visualization.motors.rzController import RZController
 # from DRV8825 import DRV8825
 # from zMotor import zMotor
 # from rMotor import rMotor
+>>>>>>> ed2974048af94639cab1ef1139c4bfa1ddea6a70
 
 
 # from DRV8825 import DRV8825

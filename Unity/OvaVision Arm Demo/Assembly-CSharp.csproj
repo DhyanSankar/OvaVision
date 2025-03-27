@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\EggGrabber.cs" />
     <Compile Include="Assets\Scripts\RBaseRotation.cs" />
     <Compile Include="Assets\Scripts\XBaseSlider.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\EggGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

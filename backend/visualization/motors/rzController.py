@@ -1,12 +1,12 @@
 # import gpiozero as GPIO
 import time
 import math
-import backend.visualization.motors.DRV8825 as DRV8825
-import backend.visualization.motors.zMotor as zMotor
-import backend.visualization.motors.rMotor as rMotor
-# from DRV8825 import DRV8825
-# from zMotor import zMotor
-# from rMotor import rMotor
+# import DRV8825 as DRV8825
+# import zMotor as zMotor
+# import rMotor as rMotor
+from DRV8825 import DRV8825
+from zMotor import zMotor
+from rMotor import rMotor
 
 class RZController:
 
