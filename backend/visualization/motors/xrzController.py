@@ -49,8 +49,8 @@ class XRZController(XController, RZController):
             xMotorsCur = []
 
             # Dummy motors
-            xMotorsCur.append(xMotor(DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27)), "GRAB"))
-            xMotorsCur.append(xMotor(DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27)), "CAM"))
+            xMotorsCur.append(xMotor(None), "GRAB")
+          
 
         XController.__init__(self, xMotorsCur)  # Initialize Employee
         RZController.__init__(self, rMotorCur,zMotorCur) 
@@ -177,16 +177,16 @@ def xrzLoop(xMotorCur, rMotorCur, zMotorCur):
 if __name__ == "__main__":
     
     # Probably will need definitions of motors stored somewhere
-    Motor1 = DRV8825(dir_pin=13, step_pin=19, enable_pin=12, mode_pins=(16, 17, 20))
-    Motor2 = DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27))
+    # Motor1 = DRV8825(dir_pin=13, step_pin=19, enable_pin=12, mode_pins=(16, 17, 20))
+    # # Motor2 = DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27))
 
-    rMotorCur = rMotor(Motor1)
-    zMotorCur = zMotor(Motor2)
+    # rMotorCur = rMotor(Motor1)
+    # zMotorCur = zMotor(Motor2)
 
     # Main loop
  
-    xMotorCur = zMotorCur
-    xrzLoop(xMotorCur,rMotorCur,zMotorCur)
+    # xMotorCur = zMotorCur
+    xrzLoop(None,None,None)
     # mainController = XRZController(xMotorCur, rMotorCur, zMotorCur)
     # mainController.setXRZWithThreading(10,11, 19)
     # mainController.print_status()
