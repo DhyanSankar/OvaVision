@@ -86,13 +86,13 @@ class XRZController(XController, RZController):
 
     def setX(self, targetX, motor = "GRAB"):
         self.status_X = 'UNAVAILABLE' 
-        time.sleep(5)
+  
         super().setX(targetX, motor)
         self.status_X = 'AVAILABLE' 
 
     def setR(self,targetR, motor):
         self.status_R = 'UNAVAILABLE' 
-        time.sleep(5)
+   
         if motor not in self.motorRotations.keys():
             super().setR((targetR )%360)
         else:
@@ -101,7 +101,7 @@ class XRZController(XController, RZController):
 
     def setZ(self,targetZ):
         self.status_Z = 'UNAVAILABLE' 
-        time.sleep(5)
+        
         super().setZ(targetZ)
         self.status_Z = 'AVAILABLE' 
     
