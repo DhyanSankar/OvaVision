@@ -3,7 +3,6 @@ import random
 import backend.visualization.coord_funcs as coord_funcs
 import backend.visualization.motors.xrzController as xrzController
 import copy
-import backend.visualization.EggSorter as EggSorter
         
 class EggBinCollection():
     # controller = xrzController() # xrzController
@@ -95,23 +94,25 @@ class EggBinCollection():
     
 class EntireMachinery(EggBinCollection):
     controller = xrzController.XRZController()
-    sorter = EggSorter()
+    sorter = -1
     r = 1 # default values
     z = 1
     gap = 1
 
-    def __init__(self, layers, edges, gap=1, controller=None):
+    def __init__(self, layers, edges, gap=1, sorter=EggSorter(), controller=None):
         super().__init__(layers, edges, gap)
+        self.sorter = sorter
         if self.controller != None:
             self.controller = controller
     
-    def __init__(self, arr, gap=1, controller=xrzController.XRZController()):
+    def __init__(self, arr, gap=1, sorter=EggSorter(), controller=xrzController.XRZController()):
         super().__init__(arr, gap)
+        self.sorter = sorter
         if self.controller != None:
             self.controller = controller
 
     def eggbin_pos_cylindrical(self, i, j): # i, j are the first two positions in the array
-        return (self.r, self.z*math.pi*j/len(self.bin_array[0]), self.z*(1-i/len(self.bin_arr[0]))) # r, z from controller itself?
+        return (self.r, self.z*math.pi*j/len(self.bin_array[0]), self.z*(1-i/len(self.bin_array[0]))) # r, z from controller itself?
     
     def egg_pos_cartesian(self, i, j, k): # specifies the exact position of egg in the stuff
         # |0  3|

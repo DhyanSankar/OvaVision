@@ -1,5 +1,5 @@
 import time
-import backend.visualization.motors.DRV8825 as DRV8825
+import DRV8825 as DRV8825
 
 class IncubatorLayerController:
 	

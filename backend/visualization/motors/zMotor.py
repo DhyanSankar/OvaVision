@@ -1,6 +1,7 @@
 # import gpiozero as GPIO
 import time
-import backend.visualization.motors.DRV8825 as DRV8825
+# import DRV8825 as DRV8825
+from DRV8825 import DRV8825
 
 
 
