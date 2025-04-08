@@ -22,6 +22,7 @@ import os
 from DRV8825 import DRV8825
 from DRV8825 import DRV8825
 from zMotor import zMotor
+from xMotor import xMotor
 from rMotor import rMotor
 
 
