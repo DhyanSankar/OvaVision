@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Unity, { UnityContext } from "react-unity-webgl";
 import axios from "axios";
 import { Loader2, Play, StopCircle, Home, Settings, List } from "lucide-react";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ const Sidebar = ({ setSection }) => (
     <button onClick={() => setSection("status")}><Home /> Status</button>
     <button onClick={() => setSection("controls")}><Settings /> Controls</button>
     <button onClick={() => setSection("logs")}><List /> Logs</button>
+    <button onClick={() => setSection("unity")}><Play /> Unity</button>
   </nav>
 );
 
@@ -46,6 +48,14 @@ const Dashboard = () => {
   const [successRate, setSuccessRate] = useState(100);
   const [movementHistory, setMovementHistory] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const unityContext = new UnityContext({
+    loaderUrl: "Unity/OvaVision Arm Demo/Build/Unity.loader.js",
+    dataUrl: "Unity/Build/Unity.data",
+    frameworkUrl: "Unity/Build/Unity.framework.js",
+    codeUrl: "Unity/Build/Unity.wasm",
+  });
+
 
   useEffect(() => {
     fetchStatus();
@@ -189,6 +199,13 @@ const Dashboard = () => {
             </Card>
           </>
         )}
+        {section === "unity" && (
+          <Card className="unity-container">
+            <h2>Unity Simulation</h2>
+            <Unity unityContext={unityContext} style={{ width: "100%", height: "600px" }} />
+          </Card>
+        )}
+
       </main>
     </div>
   );
