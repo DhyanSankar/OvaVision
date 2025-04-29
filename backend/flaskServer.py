@@ -3,6 +3,8 @@
 # python -m flask --app flaskServer run
 # flask --app backend/flaskServer run
 # cd ovavision-frontend + npm start
+
+# flask --app Capstone/OvaVision/backend/flaskServer run
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import startScript

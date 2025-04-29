@@ -1810,7 +1810,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 1, z: 20}
+  m_LocalScale: {x: 1000, y: 1, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1865,6 +1865,7 @@ MonoBehaviour:
   numberOfLayers: 4
   extensionDistance: -10
   extensionSpeed: 6
+  manual: 0
 --- !u!1 &1394080428
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,6 +2402,7 @@ MonoBehaviour:
   numberOfLayers: 4
   extensionDistance: 10
   extensionSpeed: 6
+  manual: 0
 --- !u!1 &1811781379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,7 +2818,7 @@ MonoBehaviour:
   rBaseRotation: 0
   zBaseHeight: 0
   xBasesExtensions:
-  - 0
+  - 1
   - 0
   settingCoordinates: 0
   manual: 0
@@ -2827,8 +2829,10 @@ MonoBehaviour:
   startLayer: 3
   endIncubator: 1
   endLayer: 1
+  keyboard: 1
   movingEgg: 1
   startMoving: 0
+  commands: 
 --- !u!1 &2052177554
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,13 +3060,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054533188}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: -20}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 62, z: -83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &2054533192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3075,6 +3079,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1659087181aa0ab46ae1c8f239372496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 50
+  rotationSpeed: 40
+  zoomSpeed: 20
+  center: {fileID: 1394080429}
+  minDistance: 50
+  maxDistance: 120
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

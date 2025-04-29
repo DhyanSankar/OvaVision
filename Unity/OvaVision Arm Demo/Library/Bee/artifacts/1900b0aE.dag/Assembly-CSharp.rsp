@@ -357,6 +357,7 @@
 "Assets/Scripts/Comments.cs"
 "Assets/Scripts/EggGenerator.cs"
 "Assets/Scripts/EggGrabber.cs"
+"Assets/Scripts/IncubatorGenerator.cs"
 "Assets/Scripts/LayerController.cs"
 "Assets/Scripts/RBaseRotation.cs"
 "Assets/Scripts/XBaseSlider.cs"

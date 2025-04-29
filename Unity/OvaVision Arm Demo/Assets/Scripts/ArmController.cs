@@ -30,18 +30,51 @@ public class ArmController : MonoBehaviour
     public int endIncubator = 0;
     public int endLayer = 0;
 
+
+    public bool keyboard = true;
     public bool movingEgg = false;
     public bool startMoving = false;
     private float eggMoveState = 0;
+    public string commands = "";
 
-   
-
-
-
+    private readonly string validKeys = "0123456789rxzq";
 
     // Update is called once per frame
     void Update()
     {
+
+        foreach (char c in validKeys)
+        {
+           
+            KeyCode key = c switch
+            {
+                '0' => KeyCode.Alpha0,
+                '1' => KeyCode.Alpha1,
+                '2' => KeyCode.Alpha2,
+                '3' => KeyCode.Alpha3,
+                '4' => KeyCode.Alpha4,
+                '5' => KeyCode.Alpha5,
+                '6' => KeyCode.Alpha6,
+                '7' => KeyCode.Alpha7,
+                '8' => KeyCode.Alpha8,
+                '9' => KeyCode.Alpha9,
+                'r' => KeyCode.R,
+                'x' => KeyCode.X,
+                'z' => KeyCode.Z,
+                'q' => KeyCode.Q,
+                _ => KeyCode.None
+            };
+
+            if (key != KeyCode.None && Input.GetKeyDown(key))
+            {
+                commands += c;
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                commands = "";
+            }
+        }
+
         if (settingCoordinates)
         {
             rBase.targetRotationY = rBaseRotation;

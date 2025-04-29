@@ -16,6 +16,8 @@ public class LayerController : MonoBehaviour
 
     public float extensionDistance = 10;
     public float extensionSpeed = 10;
+
+    public bool manual = false;
     void Start()
     {
         layerArray = new GameObject[numberOfLayers];
@@ -37,6 +39,7 @@ public class LayerController : MonoBehaviour
     // Update is called once per frame
     public int KeyToNumber()
     {
+        
         // https://discussions.unity.com/t/setting-an-integer-to-a-number-pressed/686967/3
         for (int number = 0; number <= 9; number++)
         {
@@ -52,7 +55,7 @@ public class LayerController : MonoBehaviour
 
 
         int n = KeyToNumber();
-        if (n != -1)
+        if (n != -1 && n < numberOfLayers && manual)
         {
             Debug.Log(n);
             extended[n] = !extended[n];
