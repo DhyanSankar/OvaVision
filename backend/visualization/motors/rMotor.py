@@ -68,6 +68,7 @@ class rMotor:
 				degrees = 360-self.rotation
 
 			self.motor.Start()
+			print("ahhhh")
 			self.motor.TurnStep(Dir='forward', steps=self.STEPS*degrees/360, stepdelay = 0.005)
 			self.motor.Stop()
 			self.changeStoredRotation(degrees)

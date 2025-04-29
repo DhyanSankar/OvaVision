@@ -9,13 +9,13 @@ root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '
 sys.path.append(root_dir)
 
 # from visualization.motors.DRV8825 import DRV8825
-from visualization.motors.zMotor import zMotor
-from visualization.motors.rMotor import rMotor
+# from visualization.motors.zMotor import zMotor
+# from visualization.motors.rMotor import rMotor
 
 
-# import DRV8825 as DRV8825
-# import zMotor as zMotor
-# import rMotor as rMotor
+import DRV8825 as DRV8825
+import zMotor as zMotor
+import rMotor as rMotor
 # from DRV8825 import DRV8825
 # from zMotor import zMotor
 # from rMotor import rMotor
