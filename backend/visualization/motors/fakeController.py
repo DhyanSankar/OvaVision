@@ -1,4 +1,5 @@
-# import stuff
+from xrzController import xrzController
+import keyboard #does this import work
 
 
 class fakeController(xrzController):
@@ -7,27 +8,23 @@ class fakeController(xrzController):
     
     '''modify the below'''
     def setX(self, targetX, motor = "GRAB"):
-        self.status_X = 'UNAVAILABLE' 
-  
-        super().setX(targetX, motor)
-        self.status_X = 'AVAILABLE' 
+        # super().setX(targetX, motor)
 
-    def setR(self,targetR, motor):
-        self.status_R = 'UNAVAILABLE' 
-   
-        if motor not in self.motorRotations.keys():
-            super().setR((targetR )%360)
-        else:
-            super().setR((targetR + self.motorRotations[motor])%360)
-        self.status_R = 'AVAILABLE' 
+        keyboard.write(f"X {targetX}")
 
-    def setZ(self,targetZ):
-        self.status_Z = 'UNAVAILABLE' 
-        
-        super().setZ(targetZ)
-        self.status_Z = 'AVAILABLE' 
+    def setR(self,targetR, motor):   
+        # if motor not in self.motorRotations.keys():
+        #     super().setR((targetR )%360)
+        # else:
+        #     super().setR((targetR + self.motorRotations[motor])%360)
+        keyboard.write(f"R {(targetR )%360}")
+
+    def setZ(self,targetZ):        
+        # super().setZ(targetZ)
+        keyboard.write(f"Z {targetZ}")
     
     def resetXRZ(self):
-        self.resetX()
-        self.resetRZ()
+        # self.resetX()
+        # self.resetRZ()
+        keyboard.write("RESET")
     
