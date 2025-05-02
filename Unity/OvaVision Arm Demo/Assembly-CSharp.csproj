@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArmController.cs" />
     <Compile Include="Assets\Scripts\Comments.cs" />
+    <Compile Include="Assets\Scripts\IncubatorGenerator.cs" />
     <Compile Include="Assets\Scripts\LayerController.cs" />
     <Compile Include="Assets\Scripts\ZBaseUpward.cs" />
     <Compile Include="Assets\Scripts\EggGrabber.cs" />
