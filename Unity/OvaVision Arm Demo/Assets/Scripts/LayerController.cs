@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Windows;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class LayerController : MonoBehaviour
 {
     // Start is called before the first frame update
 
+
+
     public GameObject layerPrefab;
+    public Transform centerPoint;
+
 
     public GameObject[] layerArray;
     public bool[] extended;
@@ -18,6 +23,7 @@ public class LayerController : MonoBehaviour
     public float extensionSpeed = 10;
 
     public bool manual = false;
+    
     void Start()
     {
         layerArray = new GameObject[numberOfLayers];
@@ -67,7 +73,7 @@ public class LayerController : MonoBehaviour
             if (layerArray[i] != null)
             {
 
-                Vector3 currentPos = layerArray[i].transform.position;
+                Vector3 currentPos = layerArray[i].transform.localPosition;
 
                 float newX;
 
@@ -80,13 +86,13 @@ public class LayerController : MonoBehaviour
                 {
                     newX = currentPos.x - extensionSpeed * Time.deltaTime;
                 }
+   
 
+
+                newX = Mathf.Clamp(newX, Mathf.Min(transform.localPosition.x, transform.localPosition.x + extensionDistance) , Mathf.Max(transform.localPosition.x, transform.localPosition.x + extensionDistance));
+
+                layerArray[i].transform.localPosition  = new Vector3(newX, currentPos.y, currentPos.z); ; 
                
-
-
-                newX = Mathf.Clamp(newX, Mathf.Min(transform.position.x, transform.position.x + extensionDistance) , Mathf.Max(transform.position.x, transform.position.x + extensionDistance));
-
-                layerArray[i].transform.position = new Vector3(newX, currentPos.y, currentPos.z); ; 
             }
         }
     }

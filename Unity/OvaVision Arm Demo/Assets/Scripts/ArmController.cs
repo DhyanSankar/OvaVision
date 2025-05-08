@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ArmController : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class ArmController : MonoBehaviour
     public bool keyboard = true;
     public bool movingEgg = false;
     public bool startMoving = false;
-    private float eggMoveState = 0;
+    public float eggMoveState = 0;
     public string commands = "";
 
     private readonly string validKeys = "0123456789rxzq";
@@ -60,8 +59,10 @@ public class ArmController : MonoBehaviour
                 '9' => KeyCode.Alpha9,
                 'r' => KeyCode.R,
                 'x' => KeyCode.X,
+                'm' => KeyCode.M,
                 'z' => KeyCode.Z,
                 'q' => KeyCode.Q,
+
                 _ => KeyCode.None
             };
 
@@ -69,11 +70,37 @@ public class ArmController : MonoBehaviour
             {
                 commands += c;
             }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+
+                if (commands.StartsWith("r") && commands.Length >= 5)
+                {
+
+                    string digits = commands.Substring(1, 4);
+
+                    if (int.TryParse(digits, out _))
+                    {
+                        startIncubator = int.Parse(digits[0].ToString());
+                        startLayer = int.Parse(digits[1].ToString());
+                        endIncubator = int.Parse(digits[2].ToString());
+                        endLayer = int.Parse(digits[3].ToString());
+
+                        startMoving = true;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Invalid digits after 'r'.");
+                    }
+                }
+               
+                commands = "";
+            }
             if (Input.GetKeyDown(KeyCode.P))
             {
                 commands = "";
             }
         }
+        
 
         if (settingCoordinates)
         {
@@ -206,7 +233,7 @@ public class ArmController : MonoBehaviour
             incubators[incubator1].extended[layer1] = true;
 
 
-            if (incubators[incubator1].layerArray[layer1].transform.position.x == incubators[incubator1].transform.position.x + incubators[incubator1].extensionDistance)
+            if (incubators[incubator1].layerArray[layer1].transform.position.x == incubators[incubator1].transform.position.x - incubators[incubator1].extensionDistance)
             {
                 GrabEgg(incubator1, layer1);
                 if (zBase.getHeight() == startPosition.y && eggGrabber.heldEgg != null)
@@ -250,7 +277,7 @@ public class ArmController : MonoBehaviour
                 zBase.targetHeight = endPosition.y;
 
             }
-            else if (xBases[0].getExtendedDistance() != xBases[0].maxX)
+            else if (Mathf.Abs( xBases[0].getExtendedDistance()) != Mathf.Abs(xBases[0].maxX))
             {
 
                 xBases[0].targetExtension = xBases[0].maxX;

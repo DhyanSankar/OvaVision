@@ -10,8 +10,6 @@ public class Comments : MonoBehaviour
     // Basically goal is just to get a framework where have arm and eggs and arm can do things to eggs
 
     // ToDo:
-    // Model eggs
-    // Build egg incubators that will extend for interaction with machine
-    // Generalize incubators so we can make more easily, machine can rotate and swap
-    // Make positioning more relative which it probably should be oopsssss
+    // Colorcode eggs
+    // Have a way of inputting config
 }
