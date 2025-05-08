@@ -3,6 +3,7 @@ import math
 import threading
 import sys
 import os
+import keyboard
 
 # Add the root directory to sys.path
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
@@ -100,7 +101,7 @@ class EggSorter:
             # Make sure to reset controller even if there's an error
             self.controller.resetXRZ()
     
-    def execute_egg_movement(self, command):
+    def execute_egg_movement(self, command, simulate=True):
         """
         Executes a single egg movement command using the xrzController
         and updates egg array
@@ -116,7 +117,14 @@ class EggSorter:
         egg_type = self.egg_collection.bin_array[src_layer][src_bin][src_egg]
         
         print(f"Moving {egg_type} egg from [{src_layer}][{src_bin}][{src_egg}] to [{dst_layer}][{dst_bin}][{dst_egg}]")
-        
+
+                
+        if simulate:
+            self.egg_collection.bin_array[dst_layer][dst_bin][dst_egg] = egg_type
+            self.egg_collection.bin_array[src_layer][src_bin][src_egg] = "0"
+            keyboard.write(str(command))
+            return
+
         try:
             # Get cartesian positions
             src_pos = tuple(self.egg_collection.bin_array[src_layer][src_bin].egg_index_to_cartesian_pos(src_egg))
