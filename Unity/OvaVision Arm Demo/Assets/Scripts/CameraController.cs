@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
 
         float zoomAmount = -verticalInput * zoomSpeed * Time.deltaTime;
 
-        Debug.Log(distance + zoomAmount);
+      
         if ((distance + zoomAmount >= minDistance) && (distance + zoomAmount <= maxDistance))
         {
             transform.position += direction * zoomAmount;

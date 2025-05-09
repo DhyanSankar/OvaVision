@@ -93,7 +93,7 @@ ScriptsOnlyBuild:
     className: Image
   - hash:
       serializedVersion: 2
-      Hash: 9b143b60479a0ff4914bc06ff57fb576
+      Hash: 049d2a07ea4996169972380194891048
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: ArmController
@@ -159,7 +159,7 @@ ScriptsOnlyBuild:
     className: UnityOnDropMessageListener
   - hash:
       serializedVersion: 2
-      Hash: b54daa7f1768e5dee58f34f66d20abd1
+      Hash: 8b7e05e4ba029f6837f1e0b4739b12be
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: EggGenerator
@@ -964,4 +964,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Jeremy/Desktop/VSPYTHON/Capstone/My project.exe
+  playerPath: C:/Users/Jeremy/Desktop/VSPYTHON/Capstone/OvaVision/My project.exe

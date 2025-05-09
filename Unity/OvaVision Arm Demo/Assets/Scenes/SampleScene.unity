@@ -616,8 +616,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eggPrefab: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
+  maleEggPrefab: {fileID: 7790217029477836228, guid: 84be6dcf6554c7343b62fbb4cce48d96, type: 3}
+  femaleEggPrefab: {fileID: 7790217029477836228, guid: 877e4ba54f8299043b4e74f11045fb0d, type: 3}
   numberOfLayers: 4
-  hasEgg: 00000000
+  hasEgg: 00000000030000000200000002000000
 --- !u!1 &220211310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2714,8 +2716,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eggPrefab: {fileID: 7790217029477836228, guid: eb876d9922b79dc488c4552114d8140f, type: 3}
+  maleEggPrefab: {fileID: 7790217029477836228, guid: 84be6dcf6554c7343b62fbb4cce48d96, type: 3}
+  femaleEggPrefab: {fileID: 7790217029477836228, guid: 877e4ba54f8299043b4e74f11045fb0d, type: 3}
   numberOfLayers: 4
-  hasEgg: 01010101
+  hasEgg: 01000000020000000000000003000000
 --- !u!1 &1965175904
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,6 +2879,8 @@ MonoBehaviour:
   incubators:
   - {fileID: 1392402939}
   - {fileID: 1772655999}
+  generator0: {fileID: 1922973431}
+  generator1: {fileID: 158303663}
   startIncubator: 0
   startLayer: 3
   endIncubator: 1
@@ -2882,6 +2888,7 @@ MonoBehaviour:
   keyboard: 1
   movingEgg: 1
   startMoving: 0
+  eggMoveState: 0
   commands: 
 --- !u!1 &2052177554
 GameObject:

@@ -23,6 +23,8 @@ public class ArmController : MonoBehaviour
 
 
     public LayerController[] incubators;
+    public EggGenerator generator0;
+    public EggGenerator generator1;
 
     public int startIncubator = 0;
     public int startLayer = 0 ;
@@ -36,7 +38,7 @@ public class ArmController : MonoBehaviour
     public float eggMoveState = 0;
     public string commands = "";
 
-    private readonly string validKeys = "0123456789rxzq";
+    private readonly string validKeys = "0123456789rxzqsm";
 
     // Update is called once per frame
     void Update()
@@ -62,6 +64,7 @@ public class ArmController : MonoBehaviour
                 'm' => KeyCode.M,
                 'z' => KeyCode.Z,
                 'q' => KeyCode.Q,
+                's' => KeyCode.S,
 
                 _ => KeyCode.None
             };
@@ -92,12 +95,47 @@ public class ArmController : MonoBehaviour
                         Debug.LogWarning("Invalid digits after 'r'.");
                     }
                 }
-               
+
+                if (commands.StartsWith("m") && commands.Length == 9)
+                {
+
+                    string digits = commands.Substring(1, 8);
+
+                    if (int.TryParse(digits, out _))
+                    {
+                        int egg00 = int.Parse(digits[0].ToString());
+                        int egg01 = int.Parse(digits[1].ToString());
+                        int egg02 = int.Parse(digits[2].ToString());
+                        int egg03 = int.Parse(digits[3].ToString());
+                        int[] eggs0 = { egg00, egg01, egg02, egg03 };
+
+                        generator0.setEggs(eggs0);
+
+                        int egg10 = int.Parse(digits[0].ToString());
+                        int egg11 = int.Parse(digits[1].ToString());
+                        int egg12 = int.Parse(digits[2].ToString());
+                        int egg13 = int.Parse(digits[3].ToString());
+                        int[] eggs1 = { egg10, egg11, egg12, egg13 };
+
+                        generator1.setEggs(eggs1);
+
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Invalid digits after 'm'.");
+                    }
+                }
+
                 commands = "";
             }
             if (Input.GetKeyDown(KeyCode.P))
             {
                 commands = "";
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                generator0.clearEggs();
+                generator1.clearEggs();
             }
         }
         
@@ -196,7 +234,6 @@ public class ArmController : MonoBehaviour
         Vector2 startPosition = LayerToCoordinates(incubator1, layer1);
         Vector2 endPosition = LayerToCoordinates(incubator2, layer2);
 
-        Debug.Log(eggMoveState);
         if (eggMoveState==0 && startMoving)
         {
             startMoving = false;
@@ -215,9 +252,9 @@ public class ArmController : MonoBehaviour
                 zBase.targetHeight = startPosition.y;
 
             }
-            else if (xBases[0].getExtendedDistance() != xBases[0].maxX)
+            else if (Mathf.Abs(xBases[0].getExtendedDistance()) != Mathf.Abs(xBases[0].maxX))
             {
-                // Debug.Log(" " + xBases[0].getExtendedDistance() + " " + xBases[0].maxX);
+                
                 xBases[0].targetExtension = xBases[0].maxX;
 
             }
@@ -233,7 +270,7 @@ public class ArmController : MonoBehaviour
             incubators[incubator1].extended[layer1] = true;
 
 
-            if (incubators[incubator1].layerArray[layer1].transform.position.x == incubators[incubator1].transform.position.x - incubators[incubator1].extensionDistance)
+            if (incubators[incubator1].layerArray[layer1].transform.position.x == incubators[incubator1].transform.position.x - incubators[incubator1].extensionDistance || incubators[incubator1].layerArray[layer1].transform.position.x == incubators[incubator1].transform.position.x + incubators[incubator1].extensionDistance)
             {
                 GrabEgg(incubator1, layer1);
                 if (zBase.getHeight() == startPosition.y && eggGrabber.heldEgg != null)
@@ -293,7 +330,7 @@ public class ArmController : MonoBehaviour
         {
             incubators[incubator2].extended[layer2] = true;
 
-            if (incubators[incubator2].layerArray[layer2].transform.position.x == incubators[incubator2].transform.position.x + incubators[incubator2].extensionDistance)
+            if (incubators[incubator2].layerArray[layer2].transform.position.x == incubators[incubator2].transform.position.x + incubators[incubator2].extensionDistance || incubators[incubator2].layerArray[layer2].transform.position.x == incubators[incubator2].transform.position.x - incubators[incubator2].extensionDistance)
             {
                 DropEgg(incubator2, layer2);
                 if (zBase.getHeight() == endPosition.y && eggGrabber.heldEgg == null)
